@@ -88,6 +88,14 @@ body {
 	text-align: left;
 }
 
+#content ul {
+  padding-left: 30px;
+}
+
+#content ol {
+  padding-left: 30px;
+}
+
 #content a {
 	color: #009ddd;
 	text-decoration: underline;
@@ -106,6 +114,10 @@ body {
 #content a:active {
 	color: #85c20c;
 	text-decoration: none;
+}
+
+#content h1 {
+  padding: 20px;
 }
 
 #content h2 {
