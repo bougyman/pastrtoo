@@ -1,0 +1,33 @@
+<h1>Editing Paste Entry</h1>
+
+<%= error_messages_for :paste_entry %>
+
+<% form_for(@paste_entry) do |f| %>
+  <p>
+    <%= f.label :title %><br />
+<% if @editable %>
+    <%= f.text_field :title %>
+<% else %>
+    <%= text_field_tag 'paste_entry[title]', '', :id => 'paste_entry_title' %>
+<% end %>
+  </p>
+
+  <p>
+    <%= f.label :filter_id, 'Language' %><br />
+    <%= select("paste_entry", "filter_id", Filter.find(:all).map { |a| [a.filter_name, a.id] }.sort { |a,b| a[0] <=> b[0] }, {:include_blank => true}) %>
+  </p>
+
+  <p>
+    <%= f.label :paste_body, 'Paste' %><br />
+    <%= f.text_area :paste_body %>
+  </p>
+
+  <%= hidden_field_tag :hex_key, params[:hex_key] %>
+
+  <p>
+    <%= f.submit (@editable ? "Update" : "New Paste From Original") %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @paste_entry %> |
+<%= link_to 'Back', paste_entries_path %>

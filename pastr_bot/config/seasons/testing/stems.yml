@@ -1,0 +1,8 @@
+--- 
+Efnet: 
+  nick: PastrToo
+  leaves: 
+  - Pastr
+  rejoin: true
+  channel: "#rubyists"
+  server: irc.efnet.net

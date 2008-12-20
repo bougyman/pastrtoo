@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+    <title>#{@title}</title>
+		<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/css/amy.css" type="text/css" media="screen" />
+	</head>
+	<body>
+		<div id="container">
+			
+			<div id="header">
+				<h1>Just Paste It</h1>
+			</div>
+			
+			<div id="menu">
+				<ul>
+					<li><a href="/about" title="All About Pastr">About</a></li>
+					<li><a href="/pastes" title="Submitted Pastes">Pastes</a></li>
+					<li><a href="/admin" title="Administer Pastr">Admin</a></li>
+				</ul>
+			</div>
+			
+			<div id="content">
+        #{@content}
+      </div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,21 @@
+
+<?r unless @paste_entry.title.blank? ?>
+<p>
+  <b>Title:</b>
+  #{@paste_entry.title}
+</p>
+<?r end ?>
+
+<p>
+  <b>Channel:</b> #{@paste_entry.channel}
+<?r unless @paste_entry.paster.nil? ?>
+  <br />
+  <b>Nick Name:</b> #{@paste_entry.paster.nickname}<br />
+<?r end ?>
+</p>
+
+<p>
+  <b>Paste body:</b>
+  #{Uv.parse(@paste_entry.paste_body.to_s, "xhtml", "ruby", true, "amy") }
+</p>
+

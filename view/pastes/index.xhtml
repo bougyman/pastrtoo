@@ -1,0 +1,16 @@
+<h1>Listing Paste Entries</h1>
+<br />
+<table cellpadding="0" cellspacing="0">
+  <tr>
+    <th>Title</th>
+  </tr>
+<?r @paste_entries.each do |paste_entry| ?>
+  <tr>
+    <td><a href="/pastes/view/#{paste_entry.id}">#{paste_entry.title}</a></td>
+  </tr>
+<?r end ?>
+</table>
+
+<br />
+
+<a href="/pastes/new">New Paste</a>
