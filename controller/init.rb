@@ -7,4 +7,4 @@ class Controller < Ramaze::Controller
   engine :Ezamar
 end
 
-acquire __DIR__/"*.rb"
+Dir[File.join(File.dirname(__FILE__), "*.rb")].each { |controller| require controller }
