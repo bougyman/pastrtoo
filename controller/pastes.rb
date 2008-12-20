@@ -13,9 +13,13 @@ class PastesController < Controller
     @paste_entries = PasteEntry.order(:id.desc).paginate(1,10)
   end
 
-  def view(paste_id)
+  def view(paste_id, filename = nil)
     @paste_entry = PasteEntry[paste_id]
-    @title = @paste_entry.title || "Paste number #{paste_id}"
+    if filename
+      respond(@paste_entry.paste_body, 200, 'Content-Type' => "text/plain")
+    else
+      @title = @paste_entry.title || "Paste number #{paste_id}"
+    end
   end
 
   # the string returned at the end of the function is used as the html body
