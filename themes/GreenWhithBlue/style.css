@@ -120,6 +120,10 @@ body {
   padding: 20px;
 }
 
+#content h4 {
+  padding: 20px;
+}
+
 #content h2 {
 	margin: 10px;
 	font-size: 20px;
