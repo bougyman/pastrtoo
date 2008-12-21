@@ -10,14 +10,14 @@ class CreateAnnotations < Sequel::Migration
       timestamp :created_at, :default => "now()"
       timestamp :updated_at, :default => "now()"
       varchar  :channel
-      string :paste_key
+      varchar :paste_key
       varchar :title
       integer :version
       varchar :reply_to
-    end unless Annotations.table_exists?
+    end unless DB.table_exists?(:annotations)
   end
 
   def down
-    drop_table :annotations if Annotations.table_exists?
+    drop_table :annotations if DB.table_exists?(:annotaions)
   end
 end
