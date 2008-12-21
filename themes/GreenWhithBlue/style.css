@@ -3,6 +3,10 @@
 	padding: 0;
 }	
 
+.completed {
+  text-decoration: line-through;
+}
+
 body {
 	font: 15px, Tahoma, Verdana, Arial, sans-serif;
 	line-height: 1.4em;
