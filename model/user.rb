@@ -1,3 +1,3 @@
 class User < Sequel::Model
-  many_to_one :paster
+  one_to_many :pasters, :one_to_one => true
 end

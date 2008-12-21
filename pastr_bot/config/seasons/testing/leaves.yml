@@ -4,3 +4,4 @@ Pastr:
     type: op
   class: Pastr
   respond_to_private_messages: true
+  command_prefix: .

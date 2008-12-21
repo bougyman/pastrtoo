@@ -5,7 +5,7 @@ require "drb"
 require "drb/ssl"
 PASTR_SOCKET = 'druby://127.0.0.1:9099'
 
-class Pastr < Autumn::Leaf
+class Controller < Autumn::Leaf
 
   before_filter :authenticate, :only => [ :hit, :reload, :quit ]
   
@@ -20,7 +20,7 @@ class Pastr < Autumn::Leaf
 # {{{ Public Methods, these are what we publish
   def hitme_command(stem, sender, reply_to, msg)
     #stem.message "Hitting #{sender[:nick]}"
-    paster = ::Paster.find_by_nickname(sender[:nick]) || ::Paster.create(:nickname => sender[:nick])
+    paster = ::Paster[:nickname => sender[:nick]] || ::Paster.create(:nickname => sender[:nick])
     #paste_title = params[:title].kind_of?(Array) ? params[:title].join(" ") : "Pastr by #{m.sourcenick}"
     paste_title = "Pastr by #{sender[:nick]}"
     salt = 'hard_to_cr4ck'
@@ -33,7 +33,7 @@ class Pastr < Autumn::Leaf
 
   def hit_command(stem, sender, reply_to, msg)
     nick = msg
-    paster = ::Paster.find_by_nickname(nick) || ::Paster.create(:nickname => nick)
+    paster = ::Paster[:nickname => nick] || ::Paster.create(:nickname => nick)
     paste_title = "Pastr by #{paster}"
     salt = 'hard_to_cr4ck'
     key = '-' + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
