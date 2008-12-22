@@ -16,7 +16,12 @@
 
 <p>
   <b>Paste body:</b>
-  #{Uv.parse(@paste_entry.paste_body.to_s, "xhtml", "ruby", true, "amy") }
+  <?r if Uv.syntaxes.include?(@paste_entry.syntax) ?>
+  #{Uv.parse(@paste_entry.paste_body.to_s, "xhtml", @paste_entry.syntax, true, "iplastic")}
+  <?r else ?>
+  #{CodeRay.highlight(@paste_entry.paste_body.to_s, @paste_entry.syntax.to_sym, :css => :class)}
+  <?r end ?>
+
 </p>
 
 <p>

@@ -4,8 +4,8 @@
 # If you want to override this, add a line like this inside the class
 #  map '/otherurl'
 # this will force the controller to be mounted on: /otherurl
-require "uv"
-Ramaze::Route[ %r!^/pastes/(\d+)$! ] = "/pastes/view/%d"
+Ramaze::Route[ %r!^/(\d+)$! ] = "/pastes/view/%d"
+Ramaze::Route[ %r!^/(\d+)/(-\w+)$! ] = "/pastes/edit/%d/%s"
 class PastesController < Controller
   # the index action is called automatically when no other action is specified
   def index(paste_id = nil)
@@ -13,13 +13,42 @@ class PastesController < Controller
     @paste_entries = PasteEntry.order(:id.desc).paginate(1,10)
   end
 
+  def edit(paste_id, key = nil)
+    @title = "Editing Paste #{paste_id}"
+    @paste_entry = PasteEntry[paste_id]
+    @paste_entry.filter = Filter.find(:filter_name => "Plain Text") if @paste_entry.filter.nil?
+    unless key == @paste_entry.paste_key
+      flash[:ERRORS] = {"Key" => "does not match paste key"}
+      redirect R(PastesController)
+    else
+      render_template("edit.haml")
+    end
+  end
+
   def view(paste_id, filename = nil)
+    require "coderay"
+    require "uv"
     @paste_entry = PasteEntry[paste_id]
     if filename
-      respond(@paste_entry.paste_body, 200, 'Content-Type' => "text/plain")
+      respond(@paste_entry.paste_body.to_s, 200, 'Content-Type' => "text/plain")
     else
       @title = @paste_entry.title || "Paste number #{paste_id}"
     end
+    render_template("view.haml")
+  end
+
+  def update(paste_id, key)
+    @paste_entry = PasteEntry[paste_id]
+    unless key == @paste_entry.paste_key
+      flash[:ERRORS] = {"Key" => "does not match paste key"}
+      redirect R(PastesController)
+    end
+    if filter = Filter[request["paste_entry"]["filter_id"]]
+      @paste_entry.update_with_params(request["paste_entry"])
+      flash[:INFO] = {"Paste #{@paste_entry.id}" => "updated successfully"}
+    end
+    @title = @paste_entry.title || "Paste number #{paste_id}"
+    redirect Rs(:view, @paste_entry.id)
   end
 
   # the string returned at the end of the function is used as the html body

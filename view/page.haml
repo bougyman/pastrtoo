@@ -1,0 +1,23 @@
+!!! XML
+!!!
+%html
+  %head
+    %title= @title
+    %link{:rel => "stylesheet", :href => "/css/style.css", :type => "text/css", :media => "screen"}/
+    %link{:rel => "stylesheet", :href => "/css/iplastic.css", :type => "text/css", :media => "screen"}/
+    %link{:rel => "stylesheet", :href => "/css/coderay.css", :type => "text/css", :media => "screen"}/
+  %body
+    #container
+			
+      #header
+        %h1 Just Paste It
+        
+      #menu
+        %ul
+          %li 
+            %a{:href => "/about",  :title => "All About Pastr"} About
+          %li 
+            %a{:href => "/pastes",  :title => "Submitted Pastes"} Pastes
+          %li 
+            %a{:href => "/admin",  :title => "Administer Pastr"} Admin
+      #content= @content

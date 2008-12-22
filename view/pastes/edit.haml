@@ -1,0 +1,27 @@
+%h1 Editing Paste Entry
+
+- if flash[:ERRORS]
+  .errors
+    - flash[:errors].each do |error|
+      %p.error= error
+
+%form{:name => "paste_entry_form", :method => :post, :class => "paste_entry", :action => Rs(:update, @paste_entry.id, @paste_entry.paste_key)}
+  %p
+    %label{:name => "paste_entry[title]"} Title/Description
+    %br
+    %input{:type => "text", :name => "paste_entry[title]", :size => 80, :value => @paste_entry.title}
+  %p
+    %label{:name => "paste_entry[filter_id]"}  'Language'
+    %br
+    %select{:title => "Pick the language for syntax highlighting", :name => "paste_entry[filter_id]"}
+      - Filter.order(:filter_name).each do |filter|
+        %option{:value => filter.id, :selected => @paste_entry.filter.id == filter.id ? true : false}= filter.filter_name
+
+  %p
+    %label{:name => "paste_entry[paste_body]"} Paste
+    %br
+    %textarea{:cols => 80, :rows => 43, :name => "paste_entry[paste_body]"}= @paste_entry.paste_body
+
+  %p
+    %input{:type => "submit"}
+

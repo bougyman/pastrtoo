@@ -7,4 +7,4 @@ require 'controller/init'
 require 'model/init'
 
 Ramaze::Route["/admin"] = "/"
-Ramaze.start :adapter => :webrick, :port => 7000
+Ramaze.start :adapter => :webrick, :port => 7000, :load_engines => [:Ezamar, :Haml]
