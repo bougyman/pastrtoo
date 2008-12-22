@@ -8,6 +8,9 @@
 Ramaze::Route["/admin"] = "/"
 
 class MainController < Controller
+  def error()
+    "An unexpected error has occurred, you get the Dunce Cap"
+  end
   # the index action is called automatically when no other action is specified
   def index
     @title = "Welcome to Pastr!"

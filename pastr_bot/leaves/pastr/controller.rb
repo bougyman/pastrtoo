@@ -39,7 +39,9 @@ class Controller < Autumn::Leaf
     key = '-' + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
     channel = reply_to
     paste_entry = ::PasteEntry.create(:paster_id => paster.id, :reply_to => PASTR_SOCKET, :title => paste_title, :channel => channel, :paste_key => key)
-    stem.message "Paste to http://paste.linuxhelp.tv/#{paste_entry.id}/#{key}", nick
+    paste_link = "http://paste.linuxhelp.tv/#{paste_entry.id}/#{paste_entry.paste_key}"
+    stem.message "Paste to #{paste_link}", nick
+    stem.message "Sent #{paste_link} to #{nick}", sender[:nick]
     nil
   end
 

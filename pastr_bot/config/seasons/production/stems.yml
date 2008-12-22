@@ -1,0 +1,30 @@
+--- 
+Efnet: 
+  nick: Pastr
+  leaves: 
+  - Pastr
+  rejoin: true
+  local_ip: 74.7.148.119
+  channels: 
+  - "#linuxgeneration"
+  - "#linuxhelp"
+  - "#philosophy"
+  - "#regex"
+  - "#debian"
+  - "#ruby"
+  - "#rubyists": flipper
+  server: irc.easynews.com
+Freenode: 
+  nick: Pastr
+  password: ZrDaGNTX
+  leaves: 
+  - Pastr
+  rejoin: true
+  local_ip: 74.7.148.119
+  channels: 
+  - "#lighttpd"
+  - "#lightshow"
+  - "#emash"
+  - "#pastr"
+  - "#rubyists"
+  server: irc.freenode.net
