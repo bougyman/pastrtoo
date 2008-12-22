@@ -34,7 +34,7 @@ class Controller < Autumn::Leaf
   def hit_command(stem, sender, reply_to, msg)
     nick = msg
     paster = ::Paster[:nickname => nick] || ::Paster.create(:nickname => nick)
-    paste_title = "Pastr by #{paster}"
+    paste_title = "Pastr by #{paster.nickname}"
     salt = 'hard_to_cr4ck'
     key = '-' + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
     channel = reply_to
