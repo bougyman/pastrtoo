@@ -5,6 +5,7 @@ uuid.state
 config/*.local
 config/database.yml
 
+ramaze.fcgi.log
 log/*.log
 
 .viminfo
