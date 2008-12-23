@@ -34,7 +34,7 @@ class PastesController < Controller
     else
       @title = @paste_entry.title || "Paste number #{paste_id}"
     end
-    render_template("view.haml")
+    #render_template("view.haml")
   end
 
   def update(paste_id, key)

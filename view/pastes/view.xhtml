@@ -16,10 +16,10 @@
 
 <p>
   <b>Paste body:</b>
-  <?r if Uv.syntaxes.include?(@paste_entry.syntax) ?>
-  #{Uv.parse(@paste_entry.paste_body.to_s, "xhtml", @paste_entry.syntax, true, "iplastic")}
+  <?r if CodeRay.scanners.list.include?(@paste_entry.syntax) ?>
+#{CodeRay.highlight(@paste_entry.paste_body.to_s, @paste_entry.syntax.to_sym, :css => :class)}
   <?r else ?>
-  #{CodeRay.highlight(@paste_entry.paste_body.to_s, @paste_entry.syntax.to_sym, :css => :class)}
+#{Uv.parse(@paste_entry.paste_body.to_s, "xhtml", @paste_entry.syntax, true, "iplastic")}
   <?r end ?>
 
 </p>

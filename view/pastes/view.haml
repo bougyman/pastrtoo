@@ -14,6 +14,7 @@
   - if CodeRay::Scanners.list.include?(@paste_entry.syntax)
     ~ CodeRay.highlight(@paste_entry.paste_body.to_s, @paste_entry.syntax.to_sym, :line_numbers => :list, :css => :class)
   - else
+    %br
     ~ Uv.parse(@paste_entry.paste_body.to_s, "xhtml", @paste_entry.syntax, true, "iplastic")
 %p
   = A("Plain Text Version", :href => Rs(:view, @paste_entry.id, "pastr_#{@paste_entry.id}.txt"))
