@@ -13,6 +13,10 @@ class Controller < Autumn::Leaf
     "Pastr allows you to paste into a syntax highlighted entry!"
   end
 
+  def help_command(stem, sender, reply_to, msg)
+    "type .hitme<enter> in a channel and i'll message you a paste link.  You paste there and it tells the channel"
+  end
+
   def hello_command(stem, sender, reply_to, msg)
     "Hi, #{sender[:nick]}"
   end

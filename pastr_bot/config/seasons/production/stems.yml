@@ -8,7 +8,6 @@ Efnet:
   channels: 
   - "#linuxgeneration"
   - "#linuxhelp"
-  - "#philosophy"
   - "#regex"
   - "#debian"
   - "#ruby"
@@ -22,6 +21,7 @@ Freenode:
   rejoin: true
   local_ip: 74.7.148.119
   channels: 
+  - "#queuetastic"
   - "#lighttpd"
   - "#lightshow"
   - "#emash"

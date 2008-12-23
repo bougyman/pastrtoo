@@ -13,6 +13,7 @@ class MainController < Controller
   end
   # the index action is called automatically when no other action is specified
   def index
+    #respond("<pre>" + request.env.inspect + "</pre>")
     @title = "Welcome to Pastr!"
   end
 
