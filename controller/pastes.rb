@@ -15,13 +15,45 @@ class PastesController < Controller
   end
 
   def annotate(paste_id)
+    require "captcha"
+    @title = "Annotating Paste #{paste_id}"
+    @annotation = Annotation.new
     @paste_entry = PasteEntry[paste_id]
+    @captcha = CAPTCHA::Web.new(:image_dir => File.join(File.dirname(__FILE__), "..", "public/img"), :font => "/usr/share/fonts/truetype/ttf-bitstream-vera/Vera.ttf")
+    @captcha.image
+    @captcha.clean
+  end
+
+  def add_annotation(paste_id)
+    require "captcha"
+    captcha_digest = request["captcha_digest"]
+    captcha_key    = request["captcha_key"]
+    unless CAPTCHA::Web.is_valid(captcha_key, captcha_digest)
+      flash[:ERRORS] = "Invalid Captcha"
+      @title = "Annotating Paste #{paste_id}"
+      @annotation = Annotation.new({:paste_entry_id => paste_id}.merge(request["annotation"]))
+      @paste_entry = PasteEntry[paste_id]
+      @captcha = CAPTCHA::Web.new(:image_dir => File.join(File.dirname(__FILE__), "..", "public/img"), :font => "/usr/share/fonts/truetype/ttf-bitstream-vera/Vera.ttf")
+      @captcha.image
+      @captcha.clean
+      render_template("annotate.haml")
+    else
+      annotation_params = request["annotation"]
+      nickname = annotation_params[:nickname].to_s
+      nickname = "Anonymous Coward" if nickname == ""
+      unless paster = Paster[:nickname => nickname]
+        paster = Paster.create(:nickname => nickname)
+      end
+      annotation = Annotation.create({:paste_entry_id => paste_id, :paster_id => paster.id}.merge(annotation_params))
+      flash[:INFO] = "Annotation created"
+      redirect R("/#{paste_id}")
+    end
   end
 
   def edit(paste_id, key = nil)
     @title = "Editing Paste #{paste_id}"
     @paste_entry = PasteEntry[paste_id]
-    @paste_entry.filter = Filter.find(:filter_name => "Plain Text") if @paste_entry.filter.nil?
+    @paste_entry.filter = (Filter.find(:filter_method => @paste_entry.channel) || Filter.find(:filter_name => "Plain Text")) if @paste_entry.filter.nil?
     unless key == @paste_entry.paste_key
       flash[:ERRORS] = {"Key" => "does not match paste key"}
       redirect R(PastesController)

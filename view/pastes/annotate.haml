@@ -1,0 +1,39 @@
+%h1= @title
+
+- if flash[:ERRORS]
+  .errors
+    - flash[:ERRORS].each do |error|
+      %p.error= error
+
+%form{:name => "annotation_form", :method => :post, :class => "annotation", :action => Rs(:add_annotation, @paste_entry.id)}
+  %p
+    %label{:name => "annotation[title]"} Title/Description
+    %br
+    %input{:type => "text", :name => "annotation[title]", :size => 80, :value => @annotation.title}
+  %p
+    %label{:name => "nickname"} Your IRC Nickname
+    %br
+    %input{:type => "text", :name => "nickname", :size => 20, :value => (@annotation.paster ? @annotation.paster.nickname : "")}
+  %p
+    %label{:name => "annotation[filter_id]"}  Language
+    %br
+    %select{:title => "Pick the language for syntax highlighting", :name => "annotation[filter_id]"}
+      - Filter.order(:filter_name).each do |filter|
+        %option{:value => filter.id, :selected => @paste_entry.filter.id == filter.id ? true : false}= filter.filter_name
+
+  %p
+    %label{:name => "annotation[paste_body]"} Annotation
+    %br
+    %textarea{:cols => 80, :rows => 43, :name => "annotation[paste_body]"}= @annotation.paste_body
+
+  %p
+    %img{:src => File.join(@captcha.image_uri, @captcha.file_name)}
+    %br
+    %input{:type => "text", :name => "captcha_key", :size => 6}
+    %br
+    %label{:name => "captcha_key"} Please input the characters from the above image (case-sensitive) to validate you are human
+    %input{:type => "hidden", :name => "captcha_digest", :value => @captcha.digest}
+    
+  %p
+    %input{:type => "submit"}
+
