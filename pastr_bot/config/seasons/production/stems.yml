@@ -5,6 +5,7 @@ Efnet:
   - Pastr
   rejoin: true
   local_ip: 74.7.148.119
+  server_id: Efnet
   channels: 
   - "#linuxgeneration"
   - "#linuxhelp"
@@ -20,6 +21,7 @@ Freenode:
   - Pastr
   rejoin: true
   local_ip: 74.7.148.119
+  server_id: Freenode
   channels: 
   - "#queuetastic"
   - "#lighttpd"
