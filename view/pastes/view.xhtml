@@ -17,7 +17,7 @@
 <p>
   <b>Paste body:</b>
   <?r if CodeRay::Scanners.list.include?(@paste_entry.syntax) ?>
-#{CodeRay.highlight(@paste_entry.paste_body.to_s, @paste_entry.syntax.to_sym, :css => :class)}
+#{CodeRay.highlight(@paste_entry.paste_body.to_s, @paste_entry.syntax.to_sym, :line_numbers => :list, :css => :class)}
   <?r else ?>
 #{Uv.parse(@paste_entry.paste_body.to_s, "xhtml", @paste_entry.syntax, true, "iplastic").sub("<span", "\n<span")}
   <?r end ?>

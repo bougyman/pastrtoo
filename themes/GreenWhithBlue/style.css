@@ -7,6 +7,12 @@
   text-decoration: line-through;
 }
 
+.highlighted-code {
+  overflow: auto;
+  width: 1030px;
+  margin: auto;
+}
+
 body {
 	font: 15px, Tahoma, Verdana, Arial, sans-serif;
 	line-height: 1.4em;

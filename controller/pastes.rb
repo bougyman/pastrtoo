@@ -4,6 +4,7 @@
 # If you want to override this, add a line like this inside the class
 #  map '/otherurl'
 # this will force the controller to be mounted on: /otherurl
+Ramaze::Route[ %r!^/(\d+)/(\w.*)$! ] = "/pastes/view/%d/%s"
 Ramaze::Route[ %r!^/(\d+)$! ] = "/pastes/view/%d"
 Ramaze::Route[ %r!^/(\d+)/(-\w+)$! ] = "/pastes/edit/%d/%s"
 class PastesController < Controller
@@ -11,6 +12,10 @@ class PastesController < Controller
   def index(paste_id = nil)
     @title = "Welcome to Pastr!"
     @paste_entries = PasteEntry.order(:id.desc).filter("paste_body is not null").paginate(1,10)
+  end
+
+  def annotate(paste_id)
+    @paste_entry = PasteEntry[paste_id]
   end
 
   def edit(paste_id, key = nil)
@@ -34,7 +39,7 @@ class PastesController < Controller
     else
       @title = @paste_entry.title || "Paste number #{paste_id}"
     end
-    #render_template("view.haml")
+    render_template("view.haml")
   end
 
   def update(paste_id, key)
