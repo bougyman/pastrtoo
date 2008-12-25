@@ -174,8 +174,11 @@ body {
 }	
 
 #footer {
-	width: 760px;
-	margin: auto;
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+  position: relative;
 	border: 1px solid #747474;
+  background-color: #9e9;
 }
 

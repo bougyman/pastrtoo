@@ -51,6 +51,10 @@ class PastrDrb
     @stems ||= drb.stems
   end
 
+  def [](network_name)
+    stems.detect { |s| s.options[:server_id] == network_name.to_s }
+  end
+
   def drb=(other)
     return unless other.nil?
     DRb.stop_service unless DRb.thread.nil?
