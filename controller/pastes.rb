@@ -11,7 +11,7 @@ class PastesController < Controller
   # the index action is called automatically when no other action is specified
   def index(paste_id = nil)
     @title = "Welcome to Pastr!"
-    @paste_entries = PasteEntry.order(:id.desc).filter("paste_body is not null").paginate(1,10)
+    @paste_entries = PasteEntry.order(:id.desc).filter("paste_body is not null").paginate(1,25)
   end
 
   def common_annotate(paste_id)
