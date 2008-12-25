@@ -35,6 +35,10 @@ class Controller < Autumn::Leaf
     nil
   end
 
+  def pastr_command(stem, sender, reply_to, msg)
+    hitme_command(stem, sender, reply_to, msg)
+  end
+
   def hit_command(stem, sender, reply_to, msg)
     nick = msg
     paster = ::Paster[:nickname => nick] || ::Paster.create(:nickname => nick)
