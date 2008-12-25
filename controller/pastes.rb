@@ -26,6 +26,7 @@ class PastesController < Controller
   def annotate(paste_id)
     require "captcha"
     @paste_entry = PasteEntry[paste_id]
+    paste_not_found(paste_id) if @paste_entry.nil?
     common_annotate(paste_id)
   end
 
@@ -34,6 +35,7 @@ class PastesController < Controller
     captcha_digest = request["captcha_digest"]
     captcha_key    = request["captcha_key"]
     @paste_entry = PasteEntry[paste_id]
+    paste_not_found(paste_id) if @paste_entry.nil?
     unless CAPTCHA::Web.is_valid(captcha_key, captcha_digest)
       flash[:ERRORS] = "Invalid Captcha"
       common_annotate(paste_id)
@@ -59,6 +61,7 @@ class PastesController < Controller
   def edit(paste_id, key = nil)
     @title = "Editing Paste #{paste_id}"
     @paste_entry = PasteEntry[paste_id]
+    paste_not_found(paste_id) if @paste_entry.nil?
     @paste_entry.filter = (Filter.find(:filter_method => @paste_entry.channel) || Filter.find(:filter_name => "Plain Text")) if @paste_entry.filter.nil?
     unless key == @paste_entry.paste_key
       flash[:ERRORS] = {"Key" => "does not match paste key"}
@@ -69,14 +72,15 @@ class PastesController < Controller
   end
 
   def view(paste_id, filename = nil)
-    require "coderay"
-    require "uv"
     @paste_entry = PasteEntry[paste_id]
+    paste_not_found(paste_id) if @paste_entry.nil?
     if filename
       respond(@paste_entry.paste_body.to_s, 200, 'Content-Type' => "text/plain")
     else
       @title = @paste_entry.title || "Paste number #{paste_id}"
     end
+    require "coderay" unless Object.const_defined?("CodeRay")
+    require "uv" unless Object.const_defined?("Uv")
     render_template("view.haml")
   end
 
@@ -88,6 +92,7 @@ class PastesController < Controller
 
   def update(paste_id, key)
     @paste_entry = PasteEntry[paste_id]
+    paste_not_found(paste_id) if @paste_entry.nil?
     unless key == @paste_entry.paste_key
       flash[:ERRORS] = {"Key" => "does not match paste key"}
       redirect R(PastesController)
@@ -106,4 +111,13 @@ class PastesController < Controller
   def notemplate
     "there is no 'notemplate.xhtml' associated with this action"
   end
+
+  private
+
+  def paste_not_found(paste_id)
+    @title = "An Error Has Occured"
+    @content = "Paste #{paste_id} not found"
+    respond(render_template("page.haml"))
+  end
+
 end
