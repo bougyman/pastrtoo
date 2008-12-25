@@ -16,8 +16,10 @@ class PasteEntry < Sequel::Model
 
   private
   def notify_channel
-    require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb"))
-    PastrDrb.say("#{paster.nickname} pasted http://paste.linuxhelp.tv/#{id} (#{title || 'Untitled'}), #{paste_body.split(/\n/).size} lines of #{filter.filter_name}", channel)
+    return unless channel.match(/^[#&+]/)
+    require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")
+    message = "#{paster.nickname} pasted http://paste.linuxhelp.tv/#{id} (#{title || 'Untitled'}), #{paste_body.split(/\n/).size} lines of #{filter.filter_name}"
+    PastrDrb.say(message, channel, network)
   end
 
 end

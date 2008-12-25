@@ -8,9 +8,22 @@
 Ramaze::Route["/admin"] = "/"
 
 class MainController < Controller
-  #def error()
-    #"An unexpected error has occurred, you get the Dunce Cap"
-  #end
+  def error
+    #require "pp"
+    require "ipaddr"
+    debug_net = IPAddr.new("192.168.6.0/24")
+    client_addr = IPAddr.new(request.env["REMOTE_ADDR"])
+    unless debug_net.include?(client_addr)
+      @title = "There was a pastr error!"
+      flash[:ERRORS] = "The error for your request from #{client_addr} has been logged"
+      @content = render_template("index.xhtml")
+      page = render_template("page.xhtml")
+      respond(page)
+    else
+      super
+    end
+  end
+
   # the index action is called automatically when no other action is specified
   def index
     #respond("<pre>" + request.env.inspect + "</pre>")

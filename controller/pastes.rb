@@ -80,6 +80,12 @@ class PastesController < Controller
     render_template("view.haml")
   end
 
+  def view_annotation(annotation_id, filename)
+    @annotation = Annotation[annotation_id]
+    raise "Annotation not found" if @annotation.nil?
+    respond(@annotation.paste_body.to_s, 200, "Content-Type" => "text/plain")
+  end
+
   def update(paste_id, key)
     @paste_entry = PasteEntry[paste_id]
     unless key == @paste_entry.paste_key
