@@ -48,7 +48,7 @@ class PastesController < Controller
       if annotation.nil?
         flash[:ERRORS] = "Failed to annotate!"
         common_annotate(paste_id)
-        return_template("annotate.haml")
+        render_template("annotate.haml")
       else
         flash[:INFO] = "Annotation created"
         redirect R("/#{paste_id}")

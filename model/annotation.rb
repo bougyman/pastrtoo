@@ -14,10 +14,18 @@ class Annotation < Sequel::Model
     self.filter ? self.filter.filter_method : "plaintext"
   end
 
+  def network
+    paste_entry.network
+  end
+
+  def channel
+    paste_entry.channel
+  end
+
   private
   def notify_channel
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")
-    message = "#{paster.nickname} annotated http://paste.linuxhelp.tv/#{id}-#{paste_entry.annotations.size} (#{title || 'Untitled'}), with #{paste_body.split(/\n/).size} lines of #{filter.filter_name}"
+    message = "#{paster.nickname} annotated http://paste.linuxhelp.tv/#{paste_entry.id}-#{paste_entry.annotations.size} (#{title || 'Untitled'}), with #{paste_body.split(/\n/).size} lines of #{filter.filter_name}"
     PastrDrb.say(message, channel, network, paster.nickname)
   end
 end
