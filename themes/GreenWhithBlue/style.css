@@ -21,7 +21,7 @@ body {
 	background: #e2e2e2;
 }
 
-li {
+ul li {
   list-style-image:url(/images/li.gif);
 }
 
@@ -75,6 +75,7 @@ li {
 	width: 98px;
 	float: left;
 	margin-right: 10px;
+  list-style: none;
 	padding-top: 10px;
 	font-size: 15px;
 	font-variant: small-caps;
