@@ -51,6 +51,10 @@ class PastrDrb
     @stems ||= drb.stems
   end
 
+  def networks
+    stems.map { |s| s.options[:server_id] }
+  end
+
   def [](network_name)
     stems.detect { |s| s.options[:server_id] == network_name.to_s }
   end

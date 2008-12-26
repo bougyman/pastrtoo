@@ -168,9 +168,6 @@ service/pastrtoo-GENERIC/log/run
 service/pastrtoo-GENERIC/run
 spec/about.rb
 spec/main.rb
-spec/pastrtoo_spec.rb
-spec/spec.opts
-spec/spec_helper.rb
 start.rb
 start.ru
 start_common.rb

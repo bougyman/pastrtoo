@@ -1,7 +1,7 @@
 class PasteEntry < Sequel::Model
   many_to_one :paster
   many_to_one :filter
-  one_to_many :annotations
+  one_to_many :annotations, :order => :updated_at
 
   after_update :notify_channel
   validates_presence_of :paster_id

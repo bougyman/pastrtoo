@@ -3,7 +3,7 @@
 <ul>
 <?r @paste_entries.each do |paste_entry| ?>
   <li>
-    <a href="/pastes/view/#{paste_entry.id}">#{paste_entry.title}</a>
+    <a href="/#{paste_entry.id}">#{paste_entry.title}</a>
     in #{paste_entry.channel} #{paste_entry.network ? "(" + paste_entry.network + ")" : ""}
     by #{paste_entry.paster.nickname}
   </li>
