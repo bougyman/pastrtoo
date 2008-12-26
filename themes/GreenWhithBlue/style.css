@@ -21,6 +21,10 @@ body {
 	background: #e2e2e2;
 }
 
+li {
+  list-style-image:url(/images/li.gif);
+}
+
 #container {
 	width: 1080px;
 	margin-top: 30px;
@@ -31,6 +35,7 @@ body {
 	border: 1px solid #747474;
 	background: #ffffff;
 }
+
 
 #header {
 	height: 50px;
