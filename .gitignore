@@ -13,7 +13,7 @@ public/img/*.png
 .viminfo*
 vendor/*
 README.rails_editor
-db/*
+db/
 script/editor
 script/spec
 script/spec_server
