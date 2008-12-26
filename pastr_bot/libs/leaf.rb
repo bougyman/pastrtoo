@@ -619,7 +619,7 @@ module Autumn
     def command_parse(stem, sender, arguments)
       if arguments[:channel] or options[:respond_to_private_messages] then
         reply_to = arguments[:channel] ? arguments[:channel] : sender[:nick]
-        matches = arguments[:message].match(/^#{Regexp.escape options[:command_prefix]}(\w+)\s*(.*)$/)
+        matches = arguments[:message].match(/^(?:#{Regexp.escape options[:command_prefix]}|#{stem.nickname}(?:[,:]?\s*)?)(\w+)\s*(.*)$/)
         if matches then
           name = matches[1].to_sym
           msg = matches[2]
