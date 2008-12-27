@@ -1,4 +1,6 @@
-%h1 Editing Paste Entry
+%p.notice 
+  Editing Paste Entry 
+  = @paste_entry.id
 
 - if flash[:ERRORS]
   .errors
@@ -20,7 +22,7 @@
   %p
     %label{:name => "paste_entry[paste_body]"} Paste
     %br
-    %textarea{:cols => 80, :rows => 43, :name => "paste_entry[paste_body]"}= @paste_entry.paste_body
+    %textarea{:cols => 80, :rows => 30, :name => "paste_entry[paste_body]"}= @paste_entry.paste_body
 
   %p
     %input{:type => "submit"}

@@ -10,7 +10,7 @@ Ramaze::Route[ %r!^/(\d+)/(-\w+)$! ] = "/pastes/edit/%d/%s"
 class PastesController < Controller
   # the index action is called automatically when no other action is specified
   def index(paste_id = nil)
-    @title = "Welcome to Pastr!"
+    @title = "Recent Pastes"
     @paste_entries = PasteEntry.order(:id.desc).filter("paste_body is not null").paginate(1,25)
   end
 
@@ -69,6 +69,13 @@ class PastesController < Controller
     else
       render_template("edit.haml")
     end
+  end
+
+  def channel(channel, network = nil)
+    @title = "Pastes for #{channel}"
+    @paste_entries = PasteEntry.order(:id.desc).filter("title is not null and paste_body is not null").filter(:channel => "#" + channel)
+    @paste_entries = @paste_entries.filter(:network => network.capitalize) unless network.nil?
+    render_template("index.xhtml")
   end
 
   def view(paste_id, filename = nil)
