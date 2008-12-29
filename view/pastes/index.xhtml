@@ -4,8 +4,8 @@
 <?r @paste_entries.each do |paste_entry| ?>
   <li>
     <a href="/#{paste_entry.id}">#{paste_entry.title.blank? ? "Untitled" : paste_entry.title}</a>
-    in <a href="/pastes/channel/#{paste_entry.channel.sub(/^#/,'')}">#{paste_entry.channel}</a> #{paste_entry.network ? "(" + paste_entry.network + ")" : ""}
-    by #{paste_entry.paster.nickname}
+    in <a class="channel-link" href="/pastes/channel/#{paste_entry.channel.to_s.sub(/^#/,'')}">#{paste_entry.channel}</a> #{paste_entry.network ? "(" + paste_entry.network + ")" : ""}
+    by <a class="paster-link" href="/pasters/#{paste_entry.paster.nickname}">#{paste_entry.paster.nickname}</a>
   </li>
 <?r end ?>
 </ul>

@@ -7,6 +7,9 @@
   text-decoration: line-through;
 }
 
+a.paster-link,a.channel-link {
+  text-decoration: none;
+}
 .highlighted-code {
   overflow: auto;
   width: 1030px;
