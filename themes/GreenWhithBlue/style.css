@@ -7,9 +7,6 @@
   text-decoration: line-through;
 }
 
-a.paster-link,a.channel-link {
-  text-decoration: none;
-}
 .highlighted-code {
   overflow: auto;
   width: 1030px;
@@ -192,3 +189,10 @@ ul li {
   background-color: #9e9;
 }
 
+#content a.paster-link {
+  text-decoration: none;
+}
+
+#content a.channel-link {
+  text-decoration: none;
+}
