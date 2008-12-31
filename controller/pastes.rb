@@ -53,7 +53,7 @@ class PastesController < Controller
         render_template("annotate.haml")
       else
         flash[:INFO] = "Annotation created"
-        redirect R("/#{paste_id}")
+        redirect R("/#{paste_id}-#{@paste_entry.annotations.size}")
       end
     end
   end

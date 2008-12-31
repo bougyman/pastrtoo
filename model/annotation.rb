@@ -22,6 +22,10 @@ class Annotation < Sequel::Model
     paste_entry.channel
   end
 
+  def sections
+    @sections ||= paste_body.split(/^(##\s+\w.*?)(?:\r?\n|$)/sm)
+  end
+
   private
   def notify_channel
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")

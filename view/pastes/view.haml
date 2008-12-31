@@ -13,21 +13,26 @@
   %p
     %b Paste body: 
     %div.highlighted-code
-      - if CodeRay::Scanners.list.include?(@paste_entry.syntax)
-        ~ CodeRay.highlight(@paste_entry.paste_body.to_s, @paste_entry.syntax.to_sym, :line_numbers => :table, :css => :class)
-      - else
-        %br
-        ~ Uv.parse(@paste_entry.paste_body.to_s, "xhtml", @paste_entry.syntax, true, "iplastic").sub("<span","\n<span")
+      - @paste_entry.sections.each do |section|
+        - if section.match(/^##\s+\w.*?$/)
+          %h4= section.sub(/^##\s+/,'')
+        - elsif section.blank?
+          - next
+        - else
+          - if CodeRay::Scanners.list.include?(@paste_entry.syntax)
+            ~ CodeRay.highlight(section.to_s, @paste_entry.syntax.to_sym, :line_numbers => :table, :css => :class)
+          - else
+            %br
+            ~ Uv.parse(section.to_s, "xhtml", @paste_entry.syntax, true, "iplastic").sub("<span","\n<span")
   %p
     = A("Plain Text Version", :href => Rs(:view, @paste_entry.id, "pastr_#{@paste_entry.id}.txt"))
     = A("Annotate this paste", :href => Rs(:annotate, @paste_entry.id))
 
 - @paste_entry.annotations.each_with_index do |annotation, a_idx|
-  %a{:name =>"annotation-#{a_idx + 1}"}
   %div.annotation
     %p
       %b Title:  
-      = annotation.title.to_s
+      %a{:name => link="annotation-#{a_idx + 1}", :href => '#' + link}= annotation.title.to_s
     %p
       %b Channel: 
       = annotation.channel.to_s
@@ -39,11 +44,18 @@
     %p
       %b Paste body: 
       %div.highlighted-code
-        - if CodeRay::Scanners.list.include?(annotation.syntax)
-          ~ CodeRay.highlight(annotation.paste_body.to_s, annotation.syntax.to_sym, :line_numbers => :table, :css => :class)
+      - annotation.sections.each do |section|
+        - if section.match(/^##\s+\w.*?$/)
+          %h4= section.sub(/^##\s+/,'')
+        - elsif section.blank?
+          - next
         - else
-          %br
-          ~ Uv.parse(annotation.paste_body.to_s, "xhtml", annotation.syntax, true, "iplastic").sub("<span","\n<span")
+          - if CodeRay::Scanners.list.include?(annotation.syntax)
+            ~ CodeRay.highlight(section.to_s, annotation.syntax.to_sym, :line_numbers => :table, :css => :class)
+          - else
+            %br
+            ~ Uv.parse(section.to_s, "xhtml", annotation.syntax, true, "iplastic").sub("<span","\n<span")
     %p
       = A("Plain Text Version", :href => Rs(:view_annotation, annotation.id, "pastr_#{@paste_entry.id}-#{a_idx + 1}.txt"))
       = A("Annotate this paste", :href => Rs(:annotate, @paste_entry.id))
+      %hr/

@@ -14,6 +14,10 @@ class PasteEntry < Sequel::Model
     self.filter ? self.filter.filter_method : "plaintext"
   end
 
+  def sections
+    @sections ||= paste_body.split(/^(##\s+\w.*?)(?:\r?\n|$)/sm)
+  end
+
   private
   def notify_channel
     return unless channel.match(/^[#&+]/)
