@@ -1,7 +1,7 @@
 * {
-	margin: 0;
-	padding: 0;
-}	
+  margin: 0;
+  padding: 0;
+}  
 
 .completed {
   text-decoration: line-through;
@@ -14,11 +14,11 @@
 }
 
 body {
-	font: 15px, Tahoma, Verdana, Arial, sans-serif;
-	line-height: 1.4em;
-	text-align: center;
-	color: #000000;
-	background: #e2e2e2;
+  font: 15px, Tahoma, Verdana, Arial, sans-serif;
+  line-height: 1.4em;
+  text-align: center;
+  color: #000000;
+  background: #e2e2e2;
 }
 
 ul li {
@@ -26,83 +26,83 @@ ul li {
 }
 
 #container {
-	width: 1080px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	margin-left: auto;
-	margin-right: auto;
+  width: 1080px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
   padding-bottom: 30px;
-	border: 1px solid #747474;
-	background: #ffffff;
+  border: 1px solid #747474;
+  background: #ffffff;
 }
 
 
 #header {
-	height: 50px;
-	width: 1050px;
-	margin: auto;
+  height: 50px;
+  width: 1050px;
+  margin: auto;
   margin-top: 10px;
-	border: 1px solid #747474;
-	background-color: #86e160;
-	background-image: url('/images/logo.jpg');
-	background-repeat: no-repeat;
-	background-position: right center;
+  border: 1px solid #747474;
+  background-color: #86e160;
+  background-image: url('/images/logo.jpg');
+  background-repeat: no-repeat;
+  background-position: right center;
 }
 
 #header h1 {
-	color: #ffffff;
-	text-align: left;
-	margin-top: 15px;
-	margin-left: 20px;
+  color: #ffffff;
+  text-align: left;
+  margin-top: 15px;
+  margin-left: 20px;
 }
 
 
 #menu {
   text-align: center;
   margin-left: 25px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	height: 40px;
-	/*border: 1px solid #747474;*/
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  /*border: 1px solid #747474;*/
 }
 
 #menu ul {
-	list-style-type: none;
+  list-style-type: none;
 }
 
-#menu ul li{
-	height: 30px;
-	width: 98px;
-	float: left;
-	margin-right: 10px;
+#menu ul li {
+  height: 30px;
+  width: 98px;
+  float: left;
+  margin-right: 10px;
   list-style: none;
-	padding-top: 10px;
-	font-size: 15px;
-	font-variant: small-caps;
+  padding-top: 10px;
+  font-size: 15px;
+  font-variant: small-caps;
 }
 
 #menu ul li#last {
-	margin-right: 0;
+  margin-right: 0;
 }
 
-#menu ul li a{
-	margin-left: 6px;
-	margin-right: 8px;
-	display: block;
-	text-decoration: none;
-	color: #a2a2a2;
-	border-bottom: 4px dotted #009ddd;
+#menu ul li a {
+  margin-left: 6px;
+  margin-right: 8px;
+  display: block;
+  text-decoration: none;
+  color: #a2a2a2;
+  border-bottom: 4px dotted #009ddd;
 
 }
 
-#menu ul li a:hover{
-	border-bottom: 4px dotted #85c20c;
+#menu ul li a:hover {
+  border-bottom: 4px dotted #85c20c;
 }
 
 #content {
-	width: 1030px;
-	margin: auto;
-	text-align: left;
+  width: 1030px;
+  margin: auto;
+  text-align: left;
 }
 
 #content ul {
@@ -114,23 +114,23 @@ ul li {
 }
 
 #content a {
-	color: #009ddd;
-	text-decoration: underline;
+  color: #009ddd;
+  text-decoration: underline;
 }
 
 #content a:visited {
-	color: #85c20c;
-	text-decoration: none;
+  color: #85c20c;
+  text-decoration: none;
 }
 
 #content a:hover {
-	color: #85c20c;
-	text-decoration: none;
+  color: #85c20c;
+  text-decoration: none;
 }
 
 #content a:active {
-	color: #85c20c;
-	text-decoration: none;
+  color: #85c20c;
+  text-decoration: none;
 }
 
 #content h1 {
@@ -142,50 +142,50 @@ ul li {
 }
 
 #content h2 {
-	margin: 10px;
-	font-size: 20px;
-	font-weight: bold;
-	color:  #009ddd;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color:  #009ddd;
 }
 
 #content h3 {
-	margin: 10px;
-	font-size: 15px;
-	font-weight: bold;
-	color: #85c20c;
+  margin: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #85c20c;
 }
 
 #content p {
-	margin: 10px;
+  margin: 10px;
 }
 
 #content acronym {
-	border-bottom: 1px dotted #85c20c;
+  border-bottom: 1px dotted #85c20c;
 }
 
 #content blockquote {
-	margin: 5px;
-	margin-left: 30px;
+  margin: 5px;
+  margin-left: 30px;
 }
 
 #content blockquote:before {
-	color: #85c20c;
-	font-weight: bold;
-	content: '"';
+  color: #85c20c;
+  font-weight: bold;
+  content: '"';
 }
 
 #content blockquote:after {
-	color: #85c20c;	
-	font-weight: bold;
-	content: '"';
-}	
+  color: #85c20c;  
+  font-weight: bold;
+  content: '"';
+}  
 
 #footer {
-	width: 1080px;
-	margin-left: auto;
-	margin-right: auto;
+  width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
-	border: 1px solid #747474;
+  border: 1px solid #747474;
   background-color: #9e9;
 }
 
