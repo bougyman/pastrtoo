@@ -1,17 +1,16 @@
 %div.paste_entry
   %p
-    %b Title:  
-    = @paste_entry.title.to_s
-  %p
     %b Channel: 
     = @paste_entry.channel.to_s
     %br
     - if @paste_entry.paster
       %b Nick Name: 
       = @paste_entry.paster.nickname
+  %p
+    %b Title:  
+    = @paste_entry.title.to_s
     %br
   %p
-    %b Paste body: 
     %div.highlighted-code
       - @paste_entry.sections.each do |section|
         - if section.match(/^##\s+\w.*?$/)
@@ -31,18 +30,18 @@
 - @paste_entry.annotations.each_with_index do |annotation, a_idx|
   %div.annotation
     %p
-      %b Title:  
-      %a{:name => link="annotation-#{a_idx + 1}", :href => '#' + link}= annotation.title.to_s
-    %p
+      %a{:name => link="annotation-#{a_idx + 1}"}
       %b Channel: 
       = annotation.channel.to_s
       %br
       - if annotation.paster
         %b Nick Name: 
         = annotation.paster.nickname
+    %p
+      %b Title:  
+      %a{:href => '#' + link}= annotation.title.to_s
       %br
     %p
-      %b Paste body: 
       %div.highlighted-code
       - annotation.sections.each do |section|
         - if section.match(/^##\s+\w.*?$/)
