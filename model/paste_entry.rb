@@ -10,6 +10,10 @@ class PasteEntry < Sequel::Model
     self.paste_body
   end
 
+  def number_of_lines
+    "#{(n_lines = text.split(/n/).size)} line#{n_lines == 1 ? "" : "s"}"
+  end
+
   def syntax
     self.filter ? self.filter.filter_method : "plaintext"
   end
@@ -18,11 +22,23 @@ class PasteEntry < Sequel::Model
     @sections ||= paste_body.split(/^(##\s+\w.*?)(?:\r?\n|$)/sm).map { |sec| sec.strip }
   end
 
+  def annotations?
+    annotations.size > 0 ? true : false
+  end
+
+  def annotation_count
+    "#{a_size = annotations.size} annotation#{a_size == 1 ? "" : "s"}"
+  end
+
+  def to_s
+    "#{title.rstrip}: #{number_of_lines} of #{filter.filter_name} by #{paster.nickname} - #{annotation_count}"
+  end
+
   private
   def notify_channel
     return unless channel.match(/^[#&+]/)
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")
-    message = "#{paster.nickname} pasted http://paste.linuxhelp.tv/#{id} (#{title || 'Untitled'}), #{paste_body.split(/\n/).size} lines of #{filter.filter_name}"
+    message = "#{paster.nickname} pasted http://paste.linuxhelp.tv/#{id} (#{title || 'Untitled'}), #{number_of_lines} lines of #{filter.filter_name}"
     PastrDrb.say(message, channel, network)
   end
 

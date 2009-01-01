@@ -8,10 +8,38 @@ Ramaze::Route[ %r!^/(\d+)/(\w.*)$! ] = "/pastes/view/%d/%s"
 Ramaze::Route[ %r!^/(\d+)$! ] = "/pastes/view/%d"
 Ramaze::Route[ %r!^/(\d+)/(-\w+)$! ] = "/pastes/edit/%d/%s"
 class PastesController < Controller
+  helper :paginate
   # the index action is called automatically when no other action is specified
   def index(paste_id = nil)
     @title = "Recent Pastes"
-    @paste_entries = PasteEntry.order(:id.desc).filter("paste_body is not null").paginate(1,25)
+    paste_entry_data = PasteEntry.order(:id.desc).filter("paste_body is not null")
+    @paste_entries = paginate(paste_entry_data, :limit => 25)
+  end
+
+  def by(*args)
+    resp_error("Args must be in the form /filter/criteria (/lanugage/ruby, /paster/bougyman, /language/ruby/paster/bougyman, etc)") unless args.size % 2 == 0 
+    ds = PasteEntry.order(:id.desc).filter("paste_body is not null")
+    args.each_slice(2) do |sli|
+      filter, criteria = sli
+      case filter
+      when "language"
+        filter = Filter.find(:filter_method => criteria)
+        resp_error("Filter #{criteria} not found") if filter.nil?
+        ds = ds.filter(:filter_id => filter.id)
+      when /paster|nick(?:name)/
+        paster = Paster.find(:nickname => criteria)
+        resp_error("Paster #{criteria} not found") if paster.nil?
+        ds = ds.filter(:paster_id => paster.id)
+      when "channel"
+        ds = ds.filter(:channel => "#" + criteria)
+      else
+        resp_error "Invalid filter chosen #{filter}"
+      end
+      resp_error("Your search returned 0 results: #{args.join('/')}") if ds.size == 0
+      @title = "Pastes matching #{args.join('/')}"
+    end
+    @paste_entries = paginate(ds, :limit => 25)
+    render_template("index.xhtml")
   end
 
   def common_annotate(paste_id)
@@ -75,6 +103,7 @@ class PastesController < Controller
     @title = "Pastes for #{channel}"
     @paste_entries = PasteEntry.order(:id.desc).filter("title is not null and paste_body is not null").filter(:channel => "#" + channel)
     @paste_entries = @paste_entries.filter(:network => network.capitalize) unless network.nil?
+    @paste_entries = paginate(@paste_entries, :limit => 25)
     render_template("index.xhtml")
   end
 
@@ -122,8 +151,12 @@ class PastesController < Controller
   private
 
   def paste_not_found(paste_id)
+    resp_error("Paste #{paste_id} not found")
+  end
+
+  def resp_error(message)
     @title = "An Error Has Occured"
-    @content = "Paste #{paste_id} not found"
+    @content = message
     respond(render_template("page.haml"))
   end
 

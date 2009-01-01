@@ -7,12 +7,14 @@
 
 Ramaze::Route[ %r!^/pasters/(\w[^/]*?)$! ] = "/pasters/index/%s"
 class PastersController < Controller
+  helper :paginate
   # the index action is called automatically when no other action is specified
   def index(paster_nickname)
     @paster = Paster.find(:nickname => paster_nickname)
     paster_not_found(paster_nickname) if @paster.nil?
     @title = "Pastes for #{paster_nickname}"
     @paste_entries = PasteEntry.filter(:paster_id => @paster.id).order(:id.desc)
+    @paste_entries = paginate(@paste_entries, :limit => 25)
     render_template("index.xhtml")
   end
 
