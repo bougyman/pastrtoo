@@ -26,7 +26,7 @@ class PastesController < Controller
         filter = Filter.find(:filter_method => criteria)
         resp_error("Filter #{criteria} not found") if filter.nil?
         ds = ds.filter(:filter_id => filter.id)
-      when /paster|nick(?:name)/
+      when /paster|nick(?:name)?/
         paster = Paster.find(:nickname => criteria)
         resp_error("Paster #{criteria} not found") if paster.nil?
         ds = ds.filter(:paster_id => paster.id)
@@ -36,8 +36,8 @@ class PastesController < Controller
         resp_error "Invalid filter chosen #{filter}"
       end
       resp_error("Your search returned 0 results: #{args.join('/')}") if ds.size == 0
-      @title = "Pastes matching #{args.join('/')}"
     end
+    @title = "Pastes matching #{args.join('/')}"
     @paste_entries = paginate(ds, :limit => 25)
     render_template("index.xhtml")
   end
