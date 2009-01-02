@@ -19,7 +19,7 @@ class PasteEntry < Sequel::Model
   end
 
   def sections
-    @sections ||= paste_body.split(/^(##\s+\w.*?)(?:\r?\n|$)/sm).map { |sec| sec.strip }
+    @sections ||= paste_body.to_s.split(/^(##\s+\w.*?)(?:\r?\n|$)/sm).map { |sec| sec.strip }
   end
 
   def annotations?
