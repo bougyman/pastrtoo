@@ -7,6 +7,7 @@
 Ramaze::Route[ %r!^/(\d+)/(\w.*)$! ] = "/pastes/view/%d/%s"
 Ramaze::Route[ %r!^/(\d+)$! ] = "/pastes/view/%d"
 Ramaze::Route[ %r!^/(\d+)/(-\w+)$! ] = "/pastes/edit/%d/%s"
+Ramaze::Route[ %r!^/by/(.*)$! ] = "/pastes/by/%s"
 class PastesController < Controller
   helper :paginate
   # the index action is called automatically when no other action is specified
@@ -17,28 +18,31 @@ class PastesController < Controller
   end
 
   def by(*args)
-    resp_error("Args must be in the form /filter/criteria (/lanugage/ruby, /paster/bougyman, /language/ruby/paster/bougyman, etc)") unless args.size % 2 == 0 
-    ds = PasteEntry.order(:id.desc).filter("paste_body is not null")
-    args.each_slice(2) do |sli|
+    resp_error("Args must be in the form /filter/criteria (/language/ruby, /paster/bougyman, /channel/ruby/network/freenode, etc)") unless args.size % 2 == 0 
+    dataset = args.each_slice(2).inject PasteEntry.order(:id.desc).filter("paste_body is not null") do |ds, sli|
       filter, criteria = sli
       case filter
       when "language"
         filter = Filter.find(:filter_method => criteria)
         resp_error("Filter #{criteria} not found") if filter.nil?
-        ds = ds.filter(:filter_id => filter.id)
+        ds.filter(:filter_id => filter.id)
       when /paster|nick(?:name)?/
         paster = Paster.find(:nickname => criteria)
         resp_error("Paster #{criteria} not found") if paster.nil?
-        ds = ds.filter(:paster_id => paster.id)
+        ds.filter(:paster_id => paster.id)
       when "channel"
-        ds = ds.filter(:channel => "#" + criteria)
+        ds.filter(:channel => "#" + criteria.to_s)
+      when "network"
+        ds.filter(:network => criteria.to_s.capitalize)
+      when /subject|title/
+        ds.filter(:title.like(/#{criteria}/i)) 
       else
         resp_error "Invalid filter chosen #{filter}"
       end
-      resp_error("Your search returned 0 results: #{args.join('/')}") if ds.size == 0
     end
+    resp_error("Your search returned 0 results: #{args.join('/')}") if dataset.size == 0
     @title = "Pastes matching #{args.join('/')}"
-    @paste_entries = paginate(ds, :limit => 25)
+    @paste_entries = paginate(dataset, :limit => 25)
     render_template("index.xhtml")
   end
 
