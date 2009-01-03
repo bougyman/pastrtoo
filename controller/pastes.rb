@@ -160,7 +160,7 @@ class PastesController < Controller
 
   def resp_error(message)
     @title = "An Error Has Occured"
-    @content = message
+    @content = h message
     respond(render_template("page.haml"))
   end
 
