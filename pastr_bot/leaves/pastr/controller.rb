@@ -10,11 +10,12 @@ class Controller < Autumn::Leaf
   before_filter :authenticate, :only => [ :hit, :reload, :quit ]
   
   def about_command(stem, sender, reply_to, msg)
-    "Pastr allows you to paste into a syntax highlighted entry! Type .help for more info."
+    "Pastr allows you to paste into a syntax highlighted entry! Type .help for more info, or check out http://paste.linuxhelp.tv for the whole story."
   end
 
   def help_command(stem, sender, reply_to, msg)
-    ".hitme <optional title> - in a channel and i'll message you a paste link.  You paste stuff at that link and it tells the channel about it"
+    ".hitme <optional title> - in a channel and i'll message you a paste link.  You paste stuff at that link and it tells the channel about it\n" + 
+    ".pastr <optional title> - exact same thing, more catchy name"
   end
 
   def hello_command(stem, sender, reply_to, msg)

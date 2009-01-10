@@ -1,4 +1,4 @@
-class CreateAnnotations < Sequel::Migration
+class AddNetworkToPasteEntries < Sequel::Migration
   def up
     alter_table :paste_entries do
       add_column :network, :varchar 

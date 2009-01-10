@@ -12,7 +12,7 @@ class PasteEntry < Sequel::Model
   end
 
   def number_of_lines
-    "#{(n_lines = text.split(/n/).size)} line#{n_lines == 1 ? "" : "s"}"
+    "#{(n_lines = text.split(/\n/).size)} line#{n_lines == 1 ? "" : "s"}"
   end
 
   def syntax
@@ -48,7 +48,7 @@ class PasteEntry < Sequel::Model
   def notify_channel
     return unless channel.match(/^[#&+]/)
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")
-    message = "#{paster.nickname} pasted http://paste.linuxhelp.tv/#{id} (#{title || 'Untitled'}), #{number_of_lines} lines of #{filter.filter_name}"
+    message = "#{paster.nickname} pasted http://paste.linuxhelp.tv/#{id} (#{title || 'Untitled'}), #{number_of_lines} of #{filter.filter_name}"
     PastrDrb.say(message, channel, network)
   end
 

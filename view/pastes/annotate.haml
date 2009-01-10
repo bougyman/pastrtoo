@@ -13,7 +13,7 @@
   %p
     %label{:name => "nickname"} Your IRC Nickname
     %br
-    %input{:type => "text", :name => "nickname", :size => 20, :value => (@annotation.paster ? @annotation.paster.nickname : "")}
+    %input{:type => "text", :name => "nickname", :size => 20, :value => (@annotation.paster ? @annotation.paster.nickname : (@cookie_nick || "AnonymousCoward"))}
   %p
     %label{:name => "annotation[filter_id]"}  Language
     %br
