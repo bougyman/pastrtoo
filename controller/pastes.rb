@@ -85,17 +85,18 @@ class PastesController < Controller
       unless paster = Paster[:nickname => nickname]
         paster = Paster.create(:nickname => nickname)
       end
-      response.set_cookie("pastr_nickname", :path => "/", :value => nickname, :expires => Time.now + (3600 * 24 * 365)) unless request.cookies["pastr_nickname"] == nickname
       annotation = Annotation.create({:channel => @paste_entry.channel, :paste_entry_id => paste_id, :paster_id => paster.id}.merge(request["annotation"]))
       if annotation.nil?
         flash[:ERRORS] = "Failed to annotate!"
         common_annotate(paste_id)
         render_template("annotate.haml")
       else
-        @title = "Annotation #{@paste_entry.annotations.size} created"
-        require "coderay" unless Object.const_defined?("CodeRay")
-        require "uv" unless Object.const_defined?("Uv")
-        render_template("view.haml")
+        flash[:INFO] = "Annotation <a href=\"#annotation-#{@paste_entry.annotations.size}\">#{@paste_entry.annotations.size}</a> created"
+        unless request.cookies["pastr_nickname"] == nickname
+          Ramaze::Log.info("set cookie, nick #{nickname}")
+          response.set_cookie("pastr_nickname", :path => "/", :value => nickname, :expires => Time.now + (3600 * 24 * 365)) 
+        end
+        redirect(R(@paste_entry.id.to_s + "-" + @paste_entry.annotations.size.to_s))
       end
     end
   end
@@ -129,6 +130,7 @@ class PastesController < Controller
     else
       @title = @paste_entry.title || "Paste number #{paste_id}"
     end
+    @title += "<br />#{flash[:INFO]}" if flash[:INFO]
     require "coderay" unless Object.const_defined?("CodeRay")
     require "uv" unless Object.const_defined?("Uv")
     render_template("view.haml")
