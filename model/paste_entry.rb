@@ -5,6 +5,7 @@ class PasteEntry < Sequel::Model
 
   after_update :notify_channel
   validates_presence_of :paster_id
+  before_save :check_privacy
 
   def text
     self.paste_body
@@ -35,6 +36,15 @@ class PasteEntry < Sequel::Model
   end
 
   private
+
+  def check_privacy
+    return true if self.private
+    # If not in a public channel, mark this as private
+    self.private = true unless channel.match(/^[+&#]/)
+    # Always return true
+    true
+  end
+
   def notify_channel
     return unless channel.match(/^[#&+]/)
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")

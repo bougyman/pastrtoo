@@ -12,14 +12,17 @@ class PastesController < Controller
   helper :paginate
   # the index action is called automatically when no other action is specified
   def index(paste_id = nil)
+    if paste_id and paste_id.to_s.match(/\d+/)
+      redirect(R(:view, paste_id))
+    end
     @title = "Recent Pastes"
-    paste_entry_data = PasteEntry.order(:id.desc).filter("paste_body is not null")
+    paste_entry_data = PasteEntry.order(:id.desc).filter("paste_body is not null and private is false")
     @paste_entries = paginate(paste_entry_data, :limit => 25)
   end
 
   def by(*args)
     resp_error("Args must be in the form /filter/criteria (/language/ruby, /paster/bougyman, /channel/ruby/network/freenode, etc)") unless args.size % 2 == 0 
-    dataset = args.each_slice(2).inject PasteEntry.order(:id.desc).filter("paste_body is not null") do |ds, sli|
+    dataset = args.each_slice(2).inject PasteEntry.order(:id.desc).filter("paste_body is not null and private is false") do |ds, sli|
       filter, criteria = sli
       case filter
       when "language"

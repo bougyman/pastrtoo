@@ -14,7 +14,7 @@ class Controller < Autumn::Leaf
   end
 
   def help_command(stem, sender, reply_to, msg)
-    "type .hitme<enter> in a channel and i'll message you a paste link.  You paste there and it tells the channel"
+    ".hitme <optional title> - in a channel and i'll message you a paste link.  You paste stuff at that link and it tells the channel about it"
   end
 
   def hello_command(stem, sender, reply_to, msg)
@@ -26,7 +26,7 @@ class Controller < Autumn::Leaf
     #stem.message "Hitting #{sender[:nick]}"
     paster = ::Paster[:nickname => sender[:nick]] || ::Paster.create(:nickname => sender[:nick])
     #paste_title = params[:title].kind_of?(Array) ? params[:title].join(" ") : "Pastr by #{m.sourcenick}"
-    paste_title = "Pastr by #{sender[:nick]}"
+    paste_title = msg.blank? ? "Pastr by #{sender[:nick]}" : msg
     salt = 'hard_to_cr4ck'
     key = "-" + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
     channel = reply_to
@@ -40,9 +40,9 @@ class Controller < Autumn::Leaf
   end
 
   def hit_command(stem, sender, reply_to, msg)
-    nick = msg
+    nick, title = msg.split(/\s+/,2)
     paster = ::Paster[:nickname => nick] || ::Paster.create(:nickname => nick)
-    paste_title = "Pastr by #{paster.nickname}"
+    paste_title = title.blank? ? "Pastr by #{paster.nickname}" : title
     salt = 'hard_to_cr4ck'
     key = '-' + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
     channel = reply_to
