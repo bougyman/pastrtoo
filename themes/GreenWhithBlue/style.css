@@ -113,22 +113,85 @@ ul li {
   padding-left: 30px;
 }
 
-#content a {
+a {
   color: #009ddd;
   text-decoration: underline;
 }
 
-#content a:visited {
-  color: #85c20c;
+div.pager a {
+  color: #00A;
   text-decoration: none;
 }
 
-#content a:hover {
-  color: #85c20c;
+div.pager a:visited {
+  color: #00A;
   text-decoration: none;
 }
 
-#content a:active {
+div.pager a:hover {
+  color: #0AA;
+  text-decoration: underline;
+}
+
+div.pager a:active {
+  color: #A0A;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #2C0;
+  text-decoration: underline;
+}
+
+a.annotation-link {
+  font-style: italic;
+  text-decoration: none;
+  color: grey;
+}
+
+a.annotation-link:visited {
+  font-style: italic;
+  text-decoration: none;
+  color: grey;
+}
+
+a.annotation-link:hover {
+  font-style: italic;
+  text-decoration: none;
+  color: #C20;
+}
+
+a.channel-link {
+  color: #222;
+  font-style: bold;
+}
+
+a.channel-link:visited {
+  color: #060;
+  font-style: bold;
+}
+
+a.channel-link:hover {
+  color: #C20;
+  font-style: bold;
+}
+a.paster-link {
+  color: #222;
+}
+
+a.paster-link:visited {
+  color: #060;
+}
+
+a.paster-link:hover {
+  color: #C20;
+}
+a:hover {
+  color: #C20;
+  text-decoration: none;
+}
+
+a:active {
   color: #85c20c;
   text-decoration: none;
 }
