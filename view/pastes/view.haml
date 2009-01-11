@@ -1,14 +1,13 @@
 %div.paste_entry
   %p
-    %b Channel: 
+    %b In: 
     = @paste_entry.channel.to_s
     %br
     - if @paste_entry.paster
-      %b Nick Name: 
+      %b By: 
       = @paste_entry.paster.nickname
   %p
-    %b Title:  
-    = @paste_entry.title.to_s
+    %b= @paste_entry.title.to_s
     %br
   %p
     %div.highlighted-code
@@ -31,15 +30,13 @@
   %div.annotation
     %p
       %a{:name => link="annotation-#{a_idx + 1}"}
-      %b Channel: 
-      = annotation.channel.to_s
       %br
       - if annotation.paster
-        %b Nick Name: 
+        %b By: 
         = annotation.paster.nickname
     %p
-      %b Title:  
-      %a{:href => '#' + link}= annotation.title.to_s
+      %b
+        %a{:href => '#' + link}= annotation.title.to_s
       %br
     %p
       %div.highlighted-code
