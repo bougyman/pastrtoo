@@ -7,10 +7,10 @@
   text-decoration: line-through;
 }
 
-.highlighted-code {
-  overflow: auto;
+div.highlighted-code {
   width: 1030px;
   margin: auto;
+  overflow: auto;
 }
 
 body {
@@ -252,10 +252,3 @@ a:active {
   background-color: #9e9;
 }
 
-#content a.paster-link {
-  text-decoration: none;
-}
-
-#content a.channel-link {
-  text-decoration: none;
-}
