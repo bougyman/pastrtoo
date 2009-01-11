@@ -40,17 +40,17 @@
       %br
     %p
       %div.highlighted-code
-      - annotation.sections.each do |section|
-        - if section.match(/^##\s+\w.*?$/)
-          %h4= section.sub(/^##\s+/,'')
-        - elsif section.blank?
-          - next
-        - else
-          - if CodeRay::Scanners.list.include?(annotation.syntax)
-            ~ CodeRay.highlight(section.to_s, annotation.syntax.to_sym, :line_numbers => :table, :css => :class)
+        - annotation.sections.each do |section|
+          - if section.match(/^##\s+\w.*?$/)
+            %h4= section.sub(/^##\s+/,'')
+          - elsif section.blank?
+            - next
           - else
-            %br
-            ~ Uv.parse(section.to_s, "xhtml", annotation.syntax, true, "iplastic").sub("<span","\n<span")
+            - if CodeRay::Scanners.list.include?(annotation.syntax)
+              ~ CodeRay.highlight(section.to_s, annotation.syntax.to_sym, :line_numbers => :table, :css => :class)
+            - else
+              %br
+              ~ Uv.parse(section.to_s, "xhtml", annotation.syntax, true, "iplastic").sub("<span","\n<span")
     %p
       = A("Plain Text Version", :href => Rs(:view_annotation, annotation.id, "pastr_#{@paste_entry.id}-#{a_idx + 1}.txt"))
       = A("Annotate this paste", :href => Rs(:annotate, @paste_entry.id))
