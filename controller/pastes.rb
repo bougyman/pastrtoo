@@ -22,7 +22,8 @@ class PastesController < Controller
 
   def by(*args)
     resp_error("Args must be in the form /filter/criteria (/language/ruby, /paster/bougyman, /channel/ruby/network/freenode, etc)") unless args.size % 2 == 0 
-    dataset = args.each_slice(2).inject PasteEntry.order(:id.desc).filter("paste_body is not null and private is false") do |ds, sli|
+    filter = PasteEntry.order(:id.desc).filter("paste_body is not null and private is false")
+    dataset = args.each_slice(2).inject(filter) do |ds, sli|
       filter, criteria = sli
       case filter
       when "language"

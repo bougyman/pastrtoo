@@ -1,4 +1,6 @@
+require File.join(File.dirname(__FILE__), "paste_section") unless Object.const_defined?("PasteSection")
 class PasteEntry < Sequel::Model
+  include PasteSection::SectionHelper
   many_to_one :paster
   many_to_one :filter
   one_to_many :annotations, :order => :updated_at
@@ -17,10 +19,6 @@ class PasteEntry < Sequel::Model
 
   def syntax
     self.filter ? self.filter.filter_method : "plaintext"
-  end
-
-  def sections
-    @sections ||= paste_body.to_s.split(/^(##\s+\w.*?)(?:\r?\n|$)/sm).map { |sec| sec.strip }
   end
 
   def annotations?
@@ -48,7 +46,7 @@ class PasteEntry < Sequel::Model
   def notify_channel
     return unless channel.match(/^[#&+]/)
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")
-    message = "#{paster.nickname} pasted http://paste.linuxhelp.tv/#{id} (#{title || 'Untitled'}), #{number_of_lines} of #{filter.filter_name}"
+    message = "#{paster.nickname} pasted http://paste.rubyists.com/#{id} (#{title || 'Untitled'}), #{number_of_lines} of #{filter.filter_name}"
     PastrDrb.say(message, channel, network)
   end
 

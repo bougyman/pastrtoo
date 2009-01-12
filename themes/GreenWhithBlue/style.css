@@ -164,27 +164,33 @@ a.annotation-link:hover {
 a.channel-link {
   color: #222;
   font-style: bold;
+  text-decoration: none;
 }
 
 a.channel-link:visited {
   color: #060;
   font-style: bold;
+  text-decoration: none;
 }
 
 a.channel-link:hover {
   color: #C20;
   font-style: bold;
+  text-decoration: none;
 }
 a.paster-link {
   color: #222;
+  text-decoration: none;
 }
 
 a.paster-link:visited {
   color: #060;
+  text-decoration: none;
 }
 
 a.paster-link:hover {
   color: #C20;
+  text-decoration: none;
 }
 a:hover {
   color: #C20;
@@ -250,5 +256,10 @@ a:active {
   position: relative;
   border: 1px solid #747474;
   background-color: #9e9;
+}
+
+.section-title {
+  font-weight: bold;
+  font-size: +1;
 }
 
