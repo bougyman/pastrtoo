@@ -8,6 +8,7 @@
 }
 
 div.highlighted-code {
+  background-color: #EEEEEE;
   width: 1030px;
   margin: auto;
   overflow: auto;
