@@ -5,3 +5,11 @@ Pastr:
   class: Pastr
   respond_to_private_messages: true
   command_prefix: .
+LogBot: 
+  class: LogBot
+  command_prefix: !
+  log_channels: 
+  - "#rubyists-Efnet"
+  - "#rubyists-Freenode"
+  clone_channels:
+    "#rubyists-Freenode": "#rubyists-Efnet"
