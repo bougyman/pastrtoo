@@ -48,7 +48,8 @@ class MainController < Controller
         if request["paste_body"]
           Ramaze::Log.info("Paste body sent, saving")
           @pastr.update_with_params(:paste_body => request["paste_body"])
-          redirect @pastr.view_link
+          redirect @pastr.view_link if request[:showme].to_s == "true"
+          respond(@pastr.view_link)
         else
           redirect @pastr.paste_link
         end

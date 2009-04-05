@@ -7,6 +7,7 @@
         - @current_channels.each do |chan_name|
           %option= chan_name
       %input{:type => :hidden, :name => :network, :value => @network_name}
+      %input{:type => :hidden, :name => :showme, :value => "true"}
       %input{:type => :submit, :value => "Pastr It!"}
     - else
       %label{:for => :network} Network:

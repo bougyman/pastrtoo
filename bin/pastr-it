@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+begin
+  require "pastr_it"
+rescue LoadError
+  require "rubygems"
+  begin
+    require "pastr_it"
+  rescue LoadError
+    $:.unshift(File.dirname(__FILE__) + "/../lib")
+    require "pastr_it"
+  end
+end
+
+PastrIt.pastr_it(ARGV)
