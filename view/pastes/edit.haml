@@ -1,6 +1,8 @@
 %p.notice 
   Editing Paste Entry 
   = @paste_entry.id
+  for 
+  = @paste_entry.channel
 
 - if flash[:ERRORS]
   .errors

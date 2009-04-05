@@ -1,15 +1,14 @@
 %div.pastr-form
-  - if @network_name
-    %p Where do you want this pastr to go?
-    %form.new-pastr{:method => :POST, :action => "/create" }
+  %p= "Where do you want this pastr to go, #{request.env["REMOTE_USER"]}?"
+  %form.new-pastr{:method => :POST, :action => "/new" }
+    - if @network_name
       %label{:for => :channel} Channel:
       %select{:type => :text, :name => :channel}
         - @current_channels.each do |chan_name|
           %option= chan_name
+      %input{:type => :hidden, :name => :network, :value => @network_name}
       %input{:type => :submit, :value => "Pastr It!"}
-  - else
-    %p Where do you want this pastr to go?
-    %form.new-pastr{:method => :POST, :action => "/new" }
+    - else
       %label{:for => :network} Network:
       %select{:type => :text, :name => :network}
         - @current_networks.each do |net_name|

@@ -25,13 +25,9 @@ class Controller < Autumn::Leaf
 # {{{ Public Methods, these are what we publish
   def hitme_command(stem, sender, reply_to, msg)
     #stem.message "Hitting #{sender[:nick]}"
-    paster = ::Paster[:nickname => sender[:nick]] || ::Paster.create(:nickname => sender[:nick])
-    #paste_title = params[:title].kind_of?(Array) ? params[:title].join(" ") : "Pastr by #{m.sourcenick}"
+    paster = ::Paster.find_or_create(:nickname => sender[:nick])
     paste_title = msg.blank? ? "Pastr by #{sender[:nick]}" : msg
-    salt = 'hard_to_cr4ck'
-    key = "-" + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
-    channel = reply_to
-    paste_entry = ::PasteEntry.create(:network => stem.options[:server_id], :paster_id => paster.id, :reply_to => PASTR_SOCKET, :title => paste_title, :channel => channel, :paste_key => key, :filter_id => filter_id_for(channel, stem.options[:server_id]))
+    paste_entry = ::PasteEntry.create(:network => stem.options[:server_id], :paster_id => paster.id, :reply_to => PASTR_SOCKET, :title => paste_title, :channel => reply_to, :filter_id => Filter.id_for(reply_to, stem.options[:server_id]))
     stem.message "Paste to http://pastr.it/#{paste_entry.id}/#{key}", sender[:nick]
     stem.message("Sent http://pastr.it/#{paste_entry.id}/#{key} to #{sender[:nick]}", reply_to) if reply_to.match(/lighttpd/)
     nil
@@ -47,15 +43,11 @@ class Controller < Autumn::Leaf
 
   def hit_command(stem, sender, reply_to, msg)
     nick, title = msg.split(/\s+/,2)
-    paster = ::Paster[:nickname => nick] || ::Paster.create(:nickname => nick)
+    paster = ::Paster.find_or_create(:nickname => nick)
     paste_title = title.blank? ? "Pastr by #{paster.nickname}" : title
-    salt = 'hard_to_cr4ck'
-    key = '-' + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
-    channel = reply_to
-    paste_entry = ::PasteEntry.create(:network => stem.options[:server_id], :paster_id => paster.id, :reply_to => PASTR_SOCKET, :title => paste_title, :channel => channel, :paste_key => key, :filter_id => filter_id_for(channel, stem.options[:server_id]))
-    paste_link = "http://pastr.it/#{paste_entry.id}/#{paste_entry.paste_key}"
-    stem.message "Paste to #{paste_link}", nick
-    stem.message "Sent #{paste_link} to #{nick}", sender[:nick]
+    paste_entry = ::PasteEntry.create(:network => stem.options[:server_id], :paster_id => paster.id, :reply_to => PASTR_SOCKET, :title => paste_title, :channel => reply_to, :filter_id => Filter.id_for(reply_to, stem.options[:server_id]))
+    stem.message "Paste to #{paste_entry.paste_link}", nick
+    stem.message "Sent #{paste_entry.paste_link} to #{nick}", sender[:nick]
     nil
   end
 
@@ -66,19 +58,6 @@ class Controller < Autumn::Leaf
 
   private
   
-  def filter_id_for(channel, network)
-    f = filter_for(channel, network)
-    f ? f.id : nil
-  end
-
-  def filter_for(channel, network)
-    if pastr_channel = ::Channel.find(:name => channel, :network => network)
-      pastr_channel.filter
-    else
-      Filter.find(:filter_method => "plaintext")
-    end
-  end
-
   def authenticate_filter(stem, channel, sender, command, msg, opts)
     # Returns true if the sender has any of the privileges listed below
     return true if sender[:nick].match(/^(?:darix|weigon|jvaughn|korozion|pgpkeys|napta|trey|icy|Pistos|bougyman|manveru|thedonvaughn|Death_Syn|kez)$/i)

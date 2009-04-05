@@ -30,21 +30,30 @@ class MainController < Controller
     @title = "Welcome to Pastr!"
   end
 
-  def new
+  def new(network = nil, channel = nil, language = nil, title = nil)
     require "lib/pastr_drb"
     @current_networks = (pdb = PastrDrb.new).networks
-    @network_name = request["network"]
+    @network_name = network || request["network"]
     @current_channels = pdb[@network_name].channels.to_a if @current_networks.include?(@network_name)
+    if @current_channels and @channel_name = (channel || request["channel"])
+      @channel_name.sub!(/^_/,"#")
+      if @channel_name == request.env["REMOTE_USER"] || @current_channels.include?(@channel_name)
+        language ||= request["language"]
+        @filter_id = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first if language
+        @pastr = PasteEntry.create(:paster_id => Paster.find_or_create(:nickname => request.env["REMOTE_USER"]).id,
+                                   :network => @network_name,
+                                   :channel => @channel_name,
+                                   :title => title || request["title"],
+                                   :filter => @filter_id || Filter.id_for(@channel_name, @network_name))
+        if request["paste_body"]
+          Ramaze::Log.info("Paste body sent, saving")
+          @pastr.update_with_params(:paste_body => request["paste_body"])
+          redirect @pastr.view_link
+        else
+          redirect @pastr.paste_link
+        end
+      end
+    end
   end
 
-  def create
-    "Creating new pastr (once bougy tells me how to do so)"
-  end
-
-  # the string returned at the end of the function is used as the html body
-  # if there is no template for the action. if there is a template, the string
-  # is silently ignored
-  def notemplate
-    "there is no 'notemplate.xhtml' associated with this action"
-  end
 end
