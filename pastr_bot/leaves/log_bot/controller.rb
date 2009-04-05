@@ -22,7 +22,8 @@ class Controller < Autumn::Leaf
   end
 
   def did_receive_channel_message(stem, sender, channel, msg)
-    message = "<#{sender[:nick]}> #{msg}"
+    nick = sender[:nick] == "bougyman" ? "bougy" : sender[:nick]
+    message = "<#{nick}> #{msg}"
     log_channel(channel, stem, message)
   end
 
@@ -30,7 +31,7 @@ class Controller < Autumn::Leaf
   def log_channel(channel, stem, message)
     fq_channel = "#{channel}-#{stem.options[:server_id]}"
     if @options[:log_channels].kind_of?(Array) and @options[:log_channels].include?(fq_channel)
-      today, now = Date.today.strftime("%Y-%m-%d"), DateTime.now.strftime("%H:%I:%S")
+      today, now = Date.today.strftime("%Y-%m-%d"), DateTime.now.strftime("%H:%M:%S")
       log_dir = File.join(@@log_directory, fq_channel)
       FileUtils.mkpath(log_dir) unless File.directory?(log_dir)
       File.open(File.join(log_dir, "#{today}.log"), "a+") do |ch_log|
@@ -45,7 +46,7 @@ class Controller < Autumn::Leaf
     if @options[:clone_channels].kind_of?(Hash) and @options[:clone_channels].keys.include?(fq_channel)
       clone_stem, clone_chan = @options[:clone_channels][fq_channel].reverse.split("-",2).map(&:reverse)
       target_stem = stems.detect { |s| s.options[:server_id] == clone_stem }
-      target_stem.message "#{message}"
+      target_stem.message "#{message}", clone_chan
     end
   end
 end

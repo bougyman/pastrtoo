@@ -5,9 +5,8 @@
 #  map '/otherurl'
 # this will force the controller to be mounted on: /otherurl
 
-Ramaze::Route["/admin"] = "/"
 
-class MainController < Controller
+class AdminController < Controller
   def error
     #require "pp"
     require "ipaddr"
@@ -26,19 +25,7 @@ class MainController < Controller
 
   # the index action is called automatically when no other action is specified
   def index
-    #respond("<pre>" + request.env.inspect + "</pre>")
-    @title = "Welcome to Pastr!"
-  end
-
-  def new
-    require "lib/pastr_drb"
-    @current_networks = (pdb = PastrDrb.new).networks
-    @network_name = request["network"]
-    @current_channels = pdb[@network_name].channels.to_a if @current_networks.include?(@network_name)
-  end
-
-  def create
-    "Creating new pastr (once bougy tells me how to do so)"
+    @title = "Welcome to Pastr, #{request.env["REMOTE_USER"]}."
   end
 
   # the string returned at the end of the function is used as the html body

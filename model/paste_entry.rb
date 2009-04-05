@@ -46,7 +46,7 @@ class PasteEntry < Sequel::Model
   def notify_channel
     return unless channel.match(/^[#&+]/)
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")
-    message = "#{paster.nickname} pasted http://paste.rubyists.com/#{id} (#{title || 'Untitled'}), #{number_of_lines} of #{filter.filter_name}"
+    message = "#{paster.nickname} pasted http://pastr.it/#{id} (#{title || 'Untitled'}), #{number_of_lines} of #{filter.filter_name}"
     PastrDrb.say(message, channel, network)
   end
 

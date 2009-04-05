@@ -6,4 +6,4 @@ end
 
 require "rubygems"
 require "ride"
-require "std_err_hooks"
+#require "std_err_hooks"

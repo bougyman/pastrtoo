@@ -5,14 +5,14 @@
     %br
     - if @paste_entry.paster
       %b By: 
-      = @paste_entry.paster.nickname
+      = h @paste_entry.paster.nickname
   %p
-    %b= @paste_entry.title.to_s
+    %b= h @paste_entry.title.to_s
     %br
   %p
     %div.highlighted-code
       - @paste_entry.sections.each do |section|
-        ~ section.highlighted
+        ~ begin;section.highlighted;rescue; h section.text;end
   %p
     = A("Plain Text Version", :href => Rs(:view, @paste_entry.id, "pastr_#{@paste_entry.id}.txt"))
     = A("Annotate this paste", :href => Rs(:annotate, @paste_entry.id))
@@ -24,10 +24,10 @@
       %br
       - if annotation.paster
         %b By: 
-        = annotation.paster.nickname
+        = h annotation.paster.nickname
     %p
       %b
-        %a{:href => '#' + link}= annotation.title.to_s
+        %a{:href => '#' + link}= h annotation.title.to_s
       %br
     %p
       %div.highlighted-code

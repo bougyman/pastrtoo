@@ -31,7 +31,7 @@ class Annotation < Sequel::Model
   private
   def notify_channel
     require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "pastr_drb")) unless Object.const_defined?("PastrDrb")
-    message = "#{paster.nickname} annotated http://paste.rubyists.com/#{paste_entry.id}-#{paste_entry.annotations.size} (#{title || 'Untitled'}), with #{number_of_lines} of #{filter.filter_name}"
+    message = "#{paster.nickname} annotated http://pastr.it/#{paste_entry.id}-#{paste_entry.annotations.size} (#{title || 'Untitled'}), with #{number_of_lines} of #{filter.filter_name}"
     PastrDrb.say(message, channel, network, paster.nickname)
   end
 end

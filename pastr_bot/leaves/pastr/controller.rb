@@ -10,7 +10,7 @@ class Controller < Autumn::Leaf
   before_filter :authenticate, :only => [ :hit, :reload, :quit ]
   
   def about_command(stem, sender, reply_to, msg)
-    "Pastr allows you to paste into a syntax highlighted entry! Type .help for more info, or check out http://paste.rubyists.com for the whole story."
+    "Pastr allows you to paste into a syntax highlighted entry! Type .help for more info, or check out http://pastr.it for the whole story."
   end
 
   def help_command(stem, sender, reply_to, msg)
@@ -32,11 +32,16 @@ class Controller < Autumn::Leaf
     key = "-" + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
     channel = reply_to
     paste_entry = ::PasteEntry.create(:network => stem.options[:server_id], :paster_id => paster.id, :reply_to => PASTR_SOCKET, :title => paste_title, :channel => channel, :paste_key => key, :filter_id => filter_id_for(channel, stem.options[:server_id]))
-    stem.message "Paste to http://paste.rubyists.com/#{paste_entry.id}/#{key}", sender[:nick]
+    stem.message "Paste to http://pastr.it/#{paste_entry.id}/#{key}", sender[:nick]
+    stem.message("Sent http://pastr.it/#{paste_entry.id}/#{key} to #{sender[:nick]}", reply_to) if reply_to.match(/lighttpd/)
     nil
   end
 
   def pastr_command(stem, sender, reply_to, msg)
+    hitme_command(stem, sender, reply_to, msg)
+  end
+
+  def paste_command(stem, sender, reply_to, msg)
     hitme_command(stem, sender, reply_to, msg)
   end
 
@@ -48,7 +53,7 @@ class Controller < Autumn::Leaf
     key = '-' + ::Digest::MD5::hexdigest(salt + ::Time.now.to_i.to_s).to_s[0,8]
     channel = reply_to
     paste_entry = ::PasteEntry.create(:network => stem.options[:server_id], :paster_id => paster.id, :reply_to => PASTR_SOCKET, :title => paste_title, :channel => channel, :paste_key => key, :filter_id => filter_id_for(channel, stem.options[:server_id]))
-    paste_link = "http://paste.rubyists.com/#{paste_entry.id}/#{paste_entry.paste_key}"
+    paste_link = "http://pastr.it/#{paste_entry.id}/#{paste_entry.paste_key}"
     stem.message "Paste to #{paste_link}", nick
     stem.message "Sent #{paste_link} to #{nick}", sender[:nick]
     nil
@@ -76,6 +81,7 @@ class Controller < Autumn::Leaf
 
   def authenticate_filter(stem, channel, sender, command, msg, opts)
     # Returns true if the sender has any of the privileges listed below
+    return true if sender[:nick].match(/^(?:darix|weigon|jvaughn|korozion|pgpkeys|napta|trey|icy|Pistos|bougyman|manveru|thedonvaughn|Death_Syn|kez)$/i)
     not ([ :operator, :admin, :founder, :channel_owner ] & [ stem.privilege(channel, sender) ].flatten).empty?
   end
 

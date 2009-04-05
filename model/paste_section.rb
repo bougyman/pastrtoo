@@ -178,7 +178,7 @@ class PasteSection
     ".wrl" => "plaintext",
     ".wsdl" => "plaintext",
     ".xbm" => "plaintext",
-    ".xhtml" => "xhtml",
+    ".xhtml" => "nitro_xhtml",
     ".xls" => "plaintext",
     ".xml" => "xml",
     ".xpm" => "plaintext",
@@ -211,6 +211,7 @@ class PasteSection
     @text = string.to_s.rstrip.sub(/^[\r\n]+/,'')
     @uv_theme = uv_theme
     @syntax = check_syntax(syntax)
+    Ramaze::Log.warn("Syntax is #{@syntax.inspect}")
   end
 
   def highlighted
@@ -229,7 +230,7 @@ class PasteSection
 
   def check_syntax(given_syntax)
     _syntax = nil
-    possible_file = File.basename(@title.split.last.chomp)
+    possible_file = File.basename(@title.split.last.to_s.chomp)
     if STATIC_MAP.keys.include?(possible_file)
       _syntax = STATIC_MAP[possible_file]
     elsif MIME_MAP.keys.include?(ext = ("." + possible_file.split(".").last))
@@ -240,7 +241,7 @@ class PasteSection
       if SYNTAX_MAP.keys.include?(new_syntax)
         _syntax = SYNTAX_MAP[new_syntax]
       end
-    end
+    end unless possible_file.blank?
     _syntax || given_syntax
   end
 
@@ -248,7 +249,7 @@ class PasteSection
     require "coderay" unless Object.const_defined?("CodeRay")
     require "uv" unless Object.const_defined?("Uv")
     if CodeRay::Scanners.list.include?(syntax)
-      CodeRay.highlight(text, syntax.to_sym, :line_numbers => :table, :css => :class)
+      CodeRay.highlight(text.to_s, syntax.to_sym, :line_numbers => :table, :css => :class)
     else
       "<br />" + Uv.parse(text, "xhtml", syntax, true, uv_theme).sub("<span","\n<span")
     end

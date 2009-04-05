@@ -1,6 +1,7 @@
 class Add < Controller
+  layout '/plain' => [:index_too]
   def index(*nums)
-    nums.inject(0) { |l,t| l += t.to_i }
+    @number = nums.inject(0) { |l,t| l += t.to_i }
   end
 
   def reqtest

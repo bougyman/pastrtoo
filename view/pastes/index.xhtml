@@ -6,9 +6,9 @@
 <?r end ?> 
 <?r @paste_entries.each do |paste_entry| ?>
   <li>
-    <a class="paste-entry-link" href="/#{paste_entry.id}">#{paste_entry.title.blank? ? "Untitled" : paste_entry.title}</a>
+    <a class="paste-entry-link" href="/#{paste_entry.id}">#{h (paste_entry.title.blank? ? "Untitled" : paste_entry.title)}</a>
     in <a class="channel-link" href="/by/channel/#{paste_entry.channel.to_s.sub(/^#/,'')}">#{paste_entry.channel}</a> #{paste_entry.network ? "(" + paste_entry.network + ")" : ""}
-    by <a class="paster-link" href="/by/nickname/#{paste_entry.paster.nickname}">#{paste_entry.paster.nickname}</a> 
+    by <a class="paster-link" href="/by/nickname/#{paste_entry.paster.nickname}">#{h paste_entry.paster.nickname}</a> 
     #{paste_entry.annotations? ? " (<a class=\"annotation-link\" href=\"/" + paste_entry.id.to_s + "-1\">" + paste_entry.annotation_count + "</a>)" : ""}
 
   </li>
