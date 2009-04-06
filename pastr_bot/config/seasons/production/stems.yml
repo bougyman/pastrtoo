@@ -9,6 +9,7 @@ Efnet:
   server_id: Efnet
   channels: 
   - "#linuxgeneration"
+  - "#philosophy"
   - "#linuxhelp"
   - "#regex"
   - "#debian"
@@ -26,14 +27,14 @@ Freenode:
   server_id: Freenode
   channels: 
   - "#queuetastic"
+  - "#freeswitcher"
   - "#lighttpd"
-  - "#lightshow"
   - "#emash"
-  - "#ride"
   - "#pastr"
   - "#rubyists"
   - "#ramaze"
   - "#sequel"
   - "#postgresql"
-  - "#freeswitch"
+  - "#mixxx"
+  - "#freeswitch-social"
   server: irc.freenode.net
