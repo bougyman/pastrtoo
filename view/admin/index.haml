@@ -1,12 +1,18 @@
 %div.admin-tasks{:style => "overflow: auto"}
-  From here you will be able to do things the underprivileged cannot do, such as:
+  Pastr is administrated by bougyman, death_syn, and thedonvaughn.  Registered users
+  have access to these additional functions:
   %ul.admin-task-list
     %li= "Create a #{A('New Paste', :href => "/new")}, without having to get a link from IRC first"
     %li 
-      Paste without a web browser. To do so, post a form with the paste_body parameter containing your paste at:
+      Paste without a web browser, by posting a form with the paste_body parameter containing your paste at:
       %pre http://pastr.it/new/NETWORK/CHANNEL/LANGUAGE/TITLE
-      or you can use request parameters for network (required),
-      channel (required), language or title.  Curl example
-      %pre echo "some plain text, piped"|curl --form "paste_body=<-" -F "title=sample text" -0 -no out -L http://pastr.it/new/Freenode/_rubyists/plain%20text
+      %p or you can use request parameters for network (required), channel (required), language or title.  Curl example:
+      %pre echo sample text|curl -F "paste_body=<-" -F "title=sample" -0 -n http://pastr.it/new/Freenode/_rubyists/plain%20text
+      %p Note that when using CHANNEL as part of the url, mapping of /^_/ to # is done as a convenience. See curl documentation (curl --manual) for more details about -F.
+      Alternately, you may use the
+      %a{:href => "http://pastr.it/pastr_it-0.0.6.gem"} pastr-it binary:
+      %pre pastr-it -c #rubyists -f /some/file -l ruby
+      %p Would paste the contents of /some/file (leave off -f to paste from STDIN) to Freenode (use -n to change to Efnet), and use ruby as the syntax highlighting language.  See pastr-it -h for full usage
     %li Set up alternate nicknames to recognize you by (not yet implemented)
     %li Get pastr to join (or leave) a channel (not yet implemented)
+%p To register, contact one of the administrators on IRC (Freenode or Efnet)
