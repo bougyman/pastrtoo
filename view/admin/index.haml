@@ -10,7 +10,7 @@
       %pre echo sample text|curl -F "paste_body=<-" -F "title=sample" -0 -n http://pastr.it/new/Freenode/_rubyists/plain%20text
       %p Note that when using CHANNEL as part of the url, mapping of /^_/ to # is done as a convenience. See curl documentation (curl --manual) for more details about -F.
       Alternately, you may use the
-      %a{:href => "http://pastr.it/pastr_it-0.0.9.gem"} pastr-it binary:
+      %a{:href => "http://pastr.it/pastr_it-0.1.0.gem"} pastr-it binary:
       %pre pastr-it -c #rubyists -f /some/file -l ruby
       %p Would paste the contents of /some/file (leave off -f to paste from STDIN) to Freenode (use -n to change to Efnet), and use ruby as the syntax highlighting language.  See pastr-it -h for full usage
     %li Set up alternate nicknames to recognize you by (not yet implemented)
