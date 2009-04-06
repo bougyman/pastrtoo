@@ -31,11 +31,17 @@ class PastrIt
   def pastr_it
     if File.file?(netrc = ENV["HOME"] + "/.netrc")
       if p_auth = File.readlines(netrc).detect { |line| line.match(/^machine\s+pastr\.it/) }
-        if match = p_auth.match(/login\s+(\S+)/)
-          @username = match[1] unless @username
+        if uname = p_auth.match(/login\s+(\S+)/)
+          unless @username != ENV["USER"]
+            puts "Using username from ~/.netrc" if $DEBUG
+            @username = uname[1]
+          end
         end
-        if match = p_auth.match(/password\s+(\S+)/)
-          @password = match[1] unless @password
+        if pwd = p_auth.match(/password\s+(\S+)/) and uname[1] == @username
+          unless @password
+            puts "Using password from ~/.netrc" if $DEBUG
+            @password = pwd[1]
+          end
         end
       end
     end

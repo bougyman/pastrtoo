@@ -87,6 +87,7 @@ class MainController < Controller
   protected
   def httpdigest_lookup_password(username)
     @user = User.find(:nickname => username)
+    httpdigest_failure if @user.nil?
     @user.password
   end
 
