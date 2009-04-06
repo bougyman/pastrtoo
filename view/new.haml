@@ -1,7 +1,8 @@
 %div.pastr-form
-  %p= "Where do you want this pastr to go, #{request.env["REMOTE_USER"]}?"
+  %p= "Where do you want this pastr to go, #{@username}?"
   %form.new-pastr{:method => :POST, :action => "/new" }
     - if @network_name
+      %p= "(sending to the channel #{@username} makes a private paste)"
       %label{:for => :channel} Channel:
       %select{:type => :text, :name => :channel}
         - @current_channels.each do |chan_name|

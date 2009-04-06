@@ -42,22 +42,22 @@ class MainController < Controller
   # at http://pastr.it/admin, also an example of how to use curl.
   def new(network = nil, channel = nil, language = nil, title = nil)
     require "lib/pastr_it"
-    username = httpdigest('new paste', PastrIt::REALM)
+    @username = httpdigest('new paste', PastrIt::REALM)
     require "lib/pastr_drb"
     @current_networks = (pdb = PastrDrb.new).networks
     @network_name = network || request["network"]
     # Set current channels if they passed a network name and we know about it (Freenode or Efnet)
-    @current_channels = pdb[@network_name].channels.to_a if @current_networks.include?(@network_name)
+    @current_channels = [@username] + pdb[@network_name].channels.to_a if @current_networks.include?(@network_name)
     # Set @channel_name to the channel param if they passed it
     if @current_channels and @channel_name = (channel || request["channel"])
       # Modify _channel to #channel, convenience for passing channel names in the url
       @channel_name.sub!(/^_/,"#")
       # If the user wants a private paste (passes his username as @channel_name) ot
       # if we're in the channel they passed, go ahead the make the paste (or show the pasting form)
-      if @channel_name == username || @current_channels.include?(@channel_name)
+      if @channel_name == @username || @current_channels.include?(@channel_name)
         language ||= request["language"]
         @filter_id = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first if language
-        @pastr = PasteEntry.create(:paster => Paster.find_or_create(:nickname => username),
+        @pastr = PasteEntry.create(:paster => Paster.find_or_create(:nickname => @username),
                                    :network => @network_name,
                                    :channel => @channel_name,
                                    :title => title || request["title"],

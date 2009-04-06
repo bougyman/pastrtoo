@@ -26,3 +26,9 @@ download/*
 
 pastr_bot/log/*
 pastr_bot/tmp/*
+public/pastr_it-*
+public/chatlogs
+public/cache
+public/headlights.jpg
+.gitignore
+.irbrc
