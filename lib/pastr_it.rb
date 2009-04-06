@@ -12,20 +12,26 @@ class PastrIt
   def parse_args
     return @opts if @opts
     @opts = OptionParser.new
-    @opts.banner = "\nUsage: pastr-it [options]"
-    @opts.on("-c", "--channel CHANNEL", "IRC Channel for this Pastr (required)") { |foo| @channel = foo }
-    @opts.on("-n", "--network NETWORK", "IRC Network for this Pastr (Default #{network}") { |foo| @network = foo }
+    @opts.banner = "\nUsage: pastr-it [options]\n"
+    @opts.on("-u", "--username USERNAME", "Your username (Default: #{@username})") { |foo| @username = foo }
+    @opts.on("-c", "--channel CHANNEL", "IRC Channel for this Pastr (Default: same as username)") { |foo| @channel = foo }
+    @opts.separator "\tWhen using your username as the channel argument, the paste will be private"
+    @opts.on("-n", "--network NETWORK", "IRC Network for this Pastr (Default: #{network})") { |foo| @network = foo }
     @opts.on("-l", "--language LANGUAGE", "Language to use for syntax highlighting") { |foo| @language = foo }
-    @opts.on("-t", "--title TITLE", "Title of this paste (Default 'Pastr by #{username}')") { |foo| @title = foo }
+    @opts.on("-t", "--title TITLE", "Title of this paste (Default: 'Pastr by #{username}')") { |foo| @title = foo }
     @opts.on("-f", "--file FILENAME", "Read paste_body from FILENAME (otherwise reads from stdin)") { |foo| @filename = foo }
+    @opts.separator "\tTo paste from STDIN (instead of a file), you need to auth with a ~/.netrc"
 
-    @opts.on("-u", "--username USERNAME", "Your username (Default #{@username}") { |foo| @username = foo }
     @opts.on_tail("-h", "--help", "Show this message") do
       puts @opts
       exit 
     end   
     @opts.parse!(@args)
-    raise 'Must supply a channel' unless @channel
+    @channel ||= @username
+    if @filename.nil? and STDIN.isatty
+      $stderr.puts "No Input on STDIN and no filename given, what am I supposed to paste?" 
+      exit 1
+    end
   end
 
   def pastr_it
@@ -46,16 +52,22 @@ class PastrIt
       end
     end
     unless @password
-      begin
-        print "Enter Password: "
-        system("stty -echo")
-        @password = $stdin.readline.chomp
-        system("stty echo")
-        print "\n"
-      rescue
-        system("stty echo")
+      if STDIN.isatty
+        begin
+          print "Enter Password: "
+          system("stty -echo")
+          @password = $stdin.readline.chomp
+          system("stty echo")
+          print "\n"
+        rescue
+          system("stty echo")
+        end
+      else
+        STDERR.puts "Error: STDIN is not a tty (you supplied your paste through STDIN instead of -f FILE)"
+        STDERR.puts "Piping only works when using a ~/.netrc to supply login info, as the Password prompt needs STDIN to be a tty"
+        exit 1
       end
-    end
+    end 
     form = {'network' => network, 'channel' => channel, 'paste_body' => paste_body}
     form["title"] = title if title
     form["language"] = language if language

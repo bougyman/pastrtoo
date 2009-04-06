@@ -31,8 +31,9 @@ class MainController < Controller
   end
 
   def httpdigest_failure
-    respond("Fail!", 401)
+    respond("Fail! Your session may have timed out, try clearing your HTTP_AUTH credentials", 401)
   end
+
   # This method creates a new paste for authorized users, either
   # interactively or all-in-one-shot if you pass the proper url/request params.
   # http://pastr.it/NETWORK/CHANNEL/LANGUAGE/TITLE  
