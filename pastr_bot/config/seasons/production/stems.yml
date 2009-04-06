@@ -4,6 +4,7 @@ Efnet:
   leaves: 
   - Pastr
   - LogBot
+  - Administrator
   rejoin: true
   local_ip: 74.7.148.119
   server_id: Efnet
@@ -22,6 +23,7 @@ Freenode:
   leaves: 
   - Pastr
   - LogBot
+  - Administrator
   rejoin: true
   local_ip: 74.7.148.119
   server_id: Freenode

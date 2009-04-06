@@ -35,7 +35,7 @@ class Controller < Autumn::Leaf
   end
 
   def register_command(stem, sender, reply_to, msg)
-    if stem[:server_id] != 'Freenode'
+    if stem.options[:server_id] != 'Freenode'
       ".register is only available on Freenode"
     else 
       if reply_to.match(/^[#&+]/)
