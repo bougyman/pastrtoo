@@ -1,18 +1,33 @@
-PASTR_IT_SPEC = Gem::Specification.new do |spec|
-  spec.name = "pastr_it"
-  spec.version = "0.1.0"
-  spec.add_dependency "httpclient"
-  spec.summary = 'A command line program to paste text to http://pastr.it'
-  spec.authors = ["Jayson Vaughn", "Michael Fellinger", "Kevin Berry", "TJ Vanderpoel"]
-  spec.email = "admins@rubyists.com"
-  spec.homepage = "http://code.rubyists.com/projects/pastrtoo"
+Gem::Specification.new do |s|
+  s.name = %q{pastr_it}
+  s.version = "0.1.1"
 
-  spec.files = ["lib/pastr_it.rb", "bin/pastr-it"]
-  spec.executables = ["pastr-it"]
-  spec.require_path = "lib"
-  spec.post_install_message = "See pastr-it -h for usage.  
+  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.authors = ["Jayson Vaughn", "Michael Fellinger", "Kevin Berry", "TJ Vanderpoel"]
+  s.date = %q{2009-04-09}
+  s.default_executable = %q{pastr-it}
+  s.email = %q{admins@rubyists.com}
+  s.executables = ["pastr-it"]
+  s.files = ["lib/pastr_it.rb", "bin/pastr-it"]
+  s.homepage = %q{http://code.rubyists.com/projects/pastrtoo}
+  s.post_install_message = %q{See pastr-it -h for usage.  
   A pastr.it account is required for use. 
-  New Accounts must be given by a pastr admin (bougyman, thedonvaughn, death_syn on freenode)"
+  You can register for an account by messaging Pastr on Freenode:
+    /msg Pastr .register <somepassword>}
+  s.require_paths = ["lib"]
+  s.rubygems_version = %q{1.2.0}
+  s.summary = %q{A command line program to paste text to http://pastr.it}
 
+  if s.respond_to? :specification_version then
+    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
+    s.specification_version = 2
+
+    if current_version >= 3 then
+      s.add_runtime_dependency(%q<httpclient>, [">= 0"])
+    else
+      s.add_dependency(%q<httpclient>, [">= 0"])
+    end
+  else
+    s.add_dependency(%q<httpclient>, [">= 0"])
+  end
 end
-

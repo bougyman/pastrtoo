@@ -1,6 +1,11 @@
 # Here goes your database connection and options
 
-require "sequel"
+begin
+  require "sequel"
+rescue LoadError
+  require "rubygems"
+  require "sequel"
+end
 require "logger"
 PASTR_DB = ENV["PASTR_DB"] unless ENV["PASTR_DB"].nil?
 PASTR_DB = "postgres://pastr:pastr_admin@localhost/pastr" unless Object.const_defined? "PASTR_DB"

@@ -1,5 +1,6 @@
 require "optparse"
 class PastrIt
+  VERSION = '0.1.2'
   REALM = 'Pastr Registered User'
   PasteLink = "http://pastr.it/new"
   attr_accessor :password, :filename, :title, :network, :channel, :language, :username

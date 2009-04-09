@@ -1,218 +1,363 @@
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 15:38:47 2008 -0600
+[3efffb6 | Mon Apr 06 20:54:45 UTC 2009] none <linuxhelp@eagle.(none)>
 
-    fixed link to xclip
+  * added a few channels and the administrator leaf
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Thu Dec 25 15:04:39 2008 -0600
+[62335a8 | Mon Apr 06 20:26:48 UTC 2009] none <linuxhelp@eagle.(none)>
 
-    added bare newgem scaffold
+  * fixed some bugs with requires and pulled from #freeswitch
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 14:14:57 2008 -0600
+[264c714 | Mon Apr 06 20:01:18 UTC 2009] none <linuxhelp@eagle.(none)>
 
-    added .pastr command to bot, added some padding on #container in the main style
+  * added more information to forms, and the ability to make a private (non-channel) paste
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 02:20:59 2008 -0600
+[38f7eb2 | Mon Apr 06 19:54:11 UTC 2009] none <linuxhelp@eagle.(none)>
 
-    Added paste_not_found method to respond when a
-    paste_entry is not found in the pastes controller
+  * updated pastr-it gem
+
+[4be5fd1 | Mon Apr 06 19:53:34 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * made pastr-it default the channel to the username, so private pastes are the default available with no args (other than -f if from file)
+
+[d394db6 | Mon Apr 06 18:37:49 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * Fixed auth failure message in httpdigest_failure.
+
+    Also worked around some situations when you don't want
+    to use .netrc (specifying a different username)
+
+[504a881 | Mon Apr 06 17:52:45 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * got rid of hoe/newgem stuff in rakefile, moved to httpdigest auth
+
+[eff6f20 | Sun Apr 05 20:45:32 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * added a cli binary to make pastes with
+
+[4d34be1 | Sun Apr 05 18:41:29 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * added more detailed help and curl example to admin instructions
+
+[7efd41b | Sun Apr 05 18:32:50 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * finished admin/http authed function, Posting to (/new/network/channel/language/title)
+
+[5a42677 | Sun Apr 05 14:36:38 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * adding admin/http auth actions
+
+[800caa2 | Fri Feb 06 20:50:04 UTC 2009] bougyman <bougyman@hellspass.nationwide-recovery.com>
+
+  * made log_bot actually work, and can clone_channels, as well
+
+[cfe0bae | Fri Feb 06 20:04:50 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * added log_bot
+
+[395041f | Mon Jan 19 02:56:24 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * Set background-color for the highlighted-code div to match the iplastic syntax style.  We need a better way to keep it matching the theme, but at least now the bg color keeps with the scroll.  Thanks to Xichekolas@freenode#ramaze
+
+[cf4135a | Tue Jan 13 17:26:52 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * refactored mime maps and syntax maps to constants, added syntax check to initializer
+
+[358dcc8 | Mon Jan 12 01:42:23 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * refactored to move section handling to its own model
+
+[91f2210 | Sun Jan 11 01:48:06 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * fixed indenting that was breaking the overflow on annotations
+
+[abbfaca | Sun Jan 11 01:45:10 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * changed titles to be more kiss
+
+[afed15b | Sun Jan 11 01:42:57 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * trying to fix overflow on annotations
+
+[a0a60f6 | Sun Jan 11 00:07:18 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * modified style to make the list a bit more readable.
+
+[a18ca37 | Sat Jan 10 22:10:47 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * added .pastr command help
+
+[01eaec1 | Sat Jan 10 22:09:20 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * added new features to feature list, struck completed features from roadmap
+
+[a512da0 | Sat Jan 10 21:50:01 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * * Modified cookie handling so it sets path as /
+
+    * Fixed dispatch.fcgi so it can be run from cli
+
+[d6acfab | Sat Jan 10 20:48:40 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * * Added setting cookie 'pastr_nickname' to save nickname
+
+    * Improved help message on the bot
+    * Added better handling of 'number_of_lines' in the notifications
+      for annotations
+
+[d91f585 | Sat Jan 10 16:11:03 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * * Added (a measure) of privacy to pastes requested in private message, not publicly
+
+      controller/pastes.rb)
+    * Added #sequel and #ramaze on freenode to pastr's channels
+    * Added the ability to set a title when requesting a link (with .hitme
+      or .pastr)
+
+[5f2afbb | Sat Jan 03 14:28:54 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * wrapped the resp_error message in h()
+
+[fc495ad | Fri Jan 02 14:39:13 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * Force .to_s to avoid breakage on empty paste_body (kwb)
+
+[2b88046 | Fri Jan 02 13:14:27 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * added filtering by title in the #by method
+
+[0674eab | Thu Jan 01 22:25:30 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * Moved @title assignment outside of the args parsing loop
+
+
+
+[05d29c1 | Thu Jan 01 22:11:59 UTC 2009] none <linuxhelp@Esther.(none)>
+
+  * added /pastes/by/*arg_pairs method for quick and dirty filtering, an pagination in the pastes list views
+
+[91b05b4 | Wed Dec 31 15:17:54 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * changed order of headers on pastes and annotations
+
+[8b90186 | Wed Dec 31 15:07:32 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * added sections in paste view, triggerred by lines that match /^## \w.*?$/
+
+[1d10b68 | Wed Dec 31 14:18:18 UTC 2008] deathsyn <deathsyn@mercury.nationwide-recovery.com>
+
+  * Expand tabs and fix some spacing to make syntax highlight work better on style.css
+
+[d203f98 | Mon Dec 29 21:35:14 UTC 2008] deathsyn <deathsyn@mercury.nationwide-recovery.com>
+
+  * Remove stale project specific pathing for reports base.
+
+[e5d0a15 | Mon Dec 29 16:31:19 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * removed text decoration from secondary links on pastes list
+
+[b82b92f | Mon Dec 29 16:27:31 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * added view by paster nickname, linked on the main pastes list
+
+[2b4f68c | Mon Dec 29 15:28:47 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * added wikipedia donation link for the fundraising drive
+
+[75f00cc | Sat Dec 27 13:15:17 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * added view-by-channel and links to channel-view in the main pastes/index
+
+[75949b5 | Fri Dec 26 16:50:52 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * added migrations for network field in paste_entries
+
+
+
+[aeda735 | Fri Dec 26 16:49:09 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * Added help info in the about command of the bot
+
+      link is requested
+    Added channel model to keep default language preference
+      for a channel
+
+[4c0c78b | Fri Dec 26 16:11:39 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * changed the css selector to just decorate unordered lists, and no decoration on the list items in the menu bar
+
+[ab31852 | Fri Dec 26 16:06:53 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * changed theme to replace list item buttons with a slick gif
+
+[6218b7c | Fri Dec 26 15:21:03 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * added changelog from git log, fixed manifest from newgem generation, added ordering of annotations by update_at in paste_entry model, changed links on main pastes/index page to be the shortened version
+
+[50a30a5 | Thu Dec 25 21:38:47 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * fixed link to xclip
+
+[c62c698 | Thu Dec 25 21:04:39 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added bare newgem scaffold
+
+[70fdfd9 | Thu Dec 25 20:14:57 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * added .pastr command to bot, added some padding on #container in the main style
+
+[753cb7a | Thu Dec 25 08:20:59 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * Added paste_not_found method to respond when a
+
     added page.haml in view/pastes as a symlink to the
     main one for layout consistency
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 02:03:13 2008 -0600
+[37b49fe | Thu Dec 25 08:03:13 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    spelled postgreSQL correctly
+  * spelled postgreSQL correctly
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 02:01:37 2008 -0600
+[5eb64a6 | Thu Dec 25 08:01:37 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    Updated Roadmap with completed tasks.
-    Changed the default recent posts list to 25 from 10
+  * Updated Roadmap with completed tasks.
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 01:22:22 2008 -0600
 
-    Changed look of footer (added background color),
-    added [] method to PastrDrb, takes a network_name
+
+[0809801 | Thu Dec 25 07:22:22 UTC 2008] none <linuxhelp@Esther.(none)>
+
+  * Changed look of footer (added background color),
+
     (stem.options[:server_id]) as an argument
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 00:47:15 2008 -0600
+[97b4bad | Thu Dec 25 06:47:15 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    added a bit of advertising for our open source benefactors
+  * added a bit of advertising for our open source benefactors
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 00:36:08 2008 -0600
+[dd6e5f6 | Thu Dec 25 06:36:08 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    added haml synhighlighting
+  * added haml synhighlighting
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 00:22:35 2008 -0600
+[a3bdb9e | Thu Dec 25 06:22:35 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    added url-rewritable link in annotation notification, fixed typo in pastes controller (return_template vs render_template)
+  * added url-rewritable link in annotation notification, fixed typo in pastes controller (return_template vs render_template)
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Thu Dec 25 00:03:12 2008 -0600
+[511ec4a | Thu Dec 25 06:03:12 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    added advanced notifications to annotation and paste_entry, refactored pastr_drb to be more aware of channels and nicknames, added divs around paste_entry and annotations in pastes/view
+  * added advanced notifications to annotation and paste_entry, refactored pastr_drb to be more aware of channels and nicknames, added divs around paste_entry and annotations in pastes/view
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Wed Dec 24 13:03:02 2008 -0600
+[113b797 | Wed Dec 24 19:03:02 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    Added network identifier per paste, so that future notifications know which stem they need to talk to.
+  * Added network identifier per paste, so that future notifications know which stem they need to talk to.
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Wed Dec 24 11:45:19 2008 -0600
+[461a90e | Wed Dec 24 17:45:19 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    fixed channel showing up in annotations
+  * fixed channel showing up in annotations
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Wed Dec 24 11:36:21 2008 -0600
+[5e71f4d | Wed Dec 24 17:36:21 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    added annotations in the view of a paste, and a way to annotate a paste
+  * added annotations in the view of a paste, and a way to annotate a paste
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Wed Dec 24 10:52:28 2008 -0600
+[3b166b9 | Wed Dec 24 16:52:28 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    removed view.xhtml
+  * removed view.xhtml
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Wed Dec 24 09:03:28 2008 -0600
+[bac229f | Wed Dec 24 15:02:52 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    Merge branch 'master' of /gits/pastrtoo
-    
-    Conflicts:
-    
-    	view/pastes/view.haml
+  * changed style to fix overflow on CodeRay content
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Wed Dec 24 09:02:52 2008 -0600
+[4dcb16f | Wed Dec 24 12:39:02 UTC 2008] deathsyn <deathsyn@mercury.nationwide-recovery.com>
 
-    changed style to fix overflow on CodeRay content
+  * Remove the HAML form of Pastes#view per bougyman.
 
-Author: deathsyn <deathsyn@mercury.nationwide-recovery.com>
-Date:   Wed Dec 24 06:39:02 2008 -0600
+[a0aa234 | Tue Dec 23 18:34:02 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    Remove the HAML form of Pastes#view per bougyman.
+  * added a generic fastcgi service runner
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Tue Dec 23 12:34:02 2008 -0600
+[61eecc5 | Tue Dec 23 18:32:51 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    added a generic fastcgi service runner
+  * fixed bot dying when someone quit with no message, fixed indentation on Uv.parse highlights
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Tue Dec 23 12:32:51 2008 -0600
+[2a17d75 | Tue Dec 23 01:21:33 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    fixed bot dying when someone quit with no message, fixed indentation on Uv.parse highlights
+  * changed back to ezamar for view, haml was adding indentation
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Mon Dec 22 19:21:33 2008 -0600
+[0f50f2c | Mon Dec 22 21:34:33 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    changed back to ezamar for view, haml was adding indentation
+  * fixed paster name, make sure we only list pastes with a body
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Mon Dec 22 15:34:33 2008 -0600
+[ef4cc88 | Mon Dec 22 21:30:18 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    fixed paster name, make sure we only list pastes with a body
+  * got bot working
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Mon Dec 22 15:30:18 2008 -0600
+[5b359e7 | Mon Dec 22 21:03:23 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    got bot working
+  * bye
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Mon Dec 22 15:03:23 2008 -0600
+[54af7fa | Mon Dec 22 20:57:52 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    bye
+  * modified start.rb to user start_common.rb, as well as dispatch.fcgi
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Mon Dec 22 14:57:52 2008 -0600
+[b6b09ba | Mon Dec 22 18:49:11 UTC 2008] bougyman <bougyman@hellspass.nationwide-recovery.com>
 
-    modified start.rb to user start_common.rb, as well as dispatch.fcgi
+  * Added syntax highlighters and filter handlers
 
-Author: bougyman <bougyman@hellspass.nationwide-recovery.com>
-Date:   Mon Dec 22 12:49:11 2008 -0600
+[afe9abc | Sun Dec 21 21:33:43 UTC 2008] bougyman <bougyman@hellspass.nationwide-recovery.com>
 
-    Added syntax highlighters and filter handlers
+  * Fixed 002 migration for sequel lingo,
 
-Author: bougyman <bougyman@hellspass.nationwide-recovery.com>
-Date:   Sun Dec 21 15:33:43 2008 -0600
-
-    Fixed 002 migration for sequel lingo,
-    added timestamps via the sequel_postgresql_triggers gem
     (built from git checkout)
 
-Author: bougyman <bougyman@hellspass.nationwide-recovery.com>
-Date:   Sun Dec 21 15:08:09 2008 -0600
+[9e9c695 | Sun Dec 21 21:08:09 UTC 2008] bougyman <bougyman@hellspass.nationwide-recovery.com>
 
-    Modified the pastr_bot leaf/pastr to work with new autumn controller
-    type and the paster and user models to reflect the relationship.
+  * Modified the pastr_bot leaf/pastr to work with new autumn controller
 
-Author: none <linuxhelp@Esther.(none)>
-Date:   Sun Dec 21 14:28:16 2008 -0600
 
-    added annotations table and model, modified styles and
-    completed milestone 'style' task
 
-Author: bougyman <bougyman@hellspass.nationwide-recovery.com>
-Date:   Sat Dec 20 13:40:54 2008 -0600
+[0df2cf0 | Sun Dec 21 20:28:16 UTC 2008] none <linuxhelp@Esther.(none)>
 
-    added plain text view link to view template
+  * added annotations table and model, modified styles and
 
-Author: bougyman <bougyman@hellspass.nationwide-recovery.com>
-Date:   Sat Dec 20 13:32:04 2008 -0600
 
-    added arbitrary filetype support
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 13:18:58 2008 -0600
+[17cfcd8 | Sat Dec 20 19:40:54 UTC 2008] bougyman <bougyman@hellspass.nationwide-recovery.com>
 
-    lowered padding on h4
+  * added plain text view link to view template
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 13:18:19 2008 -0600
+[8040518 | Sat Dec 20 19:32:04 UTC 2008] bougyman <bougyman@hellspass.nationwide-recovery.com>
 
-    added padding on h4
+  * added arbitrary filetype support
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 13:16:16 2008 -0600
+[2ec8af8 | Sat Dec 20 19:18:58 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-    changed padding on lists and headings
+  * lowered padding on h4
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 11:54:26 2008 -0600
+[483c85a | Sat Dec 20 19:18:19 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-    linked regular index to about
+  * added padding on h4
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 10:11:09 2008 -0600
+[0cff165 | Sat Dec 20 19:16:16 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-    changed to require on models
+  * changed padding on lists and headings
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 09:56:04 2008 -0600
+[ba55576 | Sat Dec 20 17:54:26 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-    added log placeholder
+  * linked regular index to about
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 09:55:05 2008 -0600
+[91122ce | Sat Dec 20 16:11:09 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-    added specs
+  * changed to require on models
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 09:53:54 2008 -0600
+[af6b561 | Sat Dec 20 15:56:04 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-    added ride file
+  * added log placeholder
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 09:46:34 2008 -0600
+[a86387c | Sat Dec 20 15:55:05 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-    added initial branch
+  * added specs
 
-Author: TJ Vanderpoel <bougy.man@gmail.com>
-Date:   Sat Dec 20 08:46:34 2008 -0600
+[a9944e3 | Sat Dec 20 15:53:54 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
 
-* Committed initial tree, pulling the models from pastr into sequel and putting up an initial scaffold (deathsyn, bougyman)
+  * added ride file
+
+[67614f8 | Sat Dec 20 15:46:34 UTC 2008] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added initial branch
+
