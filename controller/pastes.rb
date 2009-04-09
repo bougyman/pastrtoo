@@ -47,6 +47,7 @@ class PastesController < Controller
     resp_error("Your search returned 0 results: #{args.join('/')}") if dataset.size == 0
     @title = "Pastes matching #{args.join('/')}"
     @paste_entries = paginate(dataset, :limit => 25)
+    Ramaze::Log.info("dataset sql is #{dataset.sql}")
     render_template("index.xhtml")
   end
 

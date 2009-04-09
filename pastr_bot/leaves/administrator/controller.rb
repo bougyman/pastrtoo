@@ -10,6 +10,7 @@ class Controller < Autumn::Leaf
   #
   # This command does not reload the YAML configuration files, only the source
   # code.
+  before_filter :authenticate, :only => [ :reload, :quit ]
   
   def reload_command(stem, sender, reply_to, msg)
     var :leaves => Hash.new
@@ -63,5 +64,12 @@ class Controller < Autumn::Leaf
   # features.
   
   def commands_command(stem, sender, reply_to, msg)
+  end
+
+  protected
+  def authenticate_filter(stem, channel, sender, command, msg, opts)
+    # Returns true if the sender has any of the privileges listed below
+    return true if sender[:nick].match(/^(?:darix|weigon|jvaughn|korozion|pgpkeys|napta|trey|icy|Pistos|bougyman|manveru|thedonvaughn|Death_Syn|kez)$/i)
+    not ([ :operator, :admin, :founder, :channel_owner ] & [ stem.privilege(channel, sender) ].flatten).empty?
   end
 end

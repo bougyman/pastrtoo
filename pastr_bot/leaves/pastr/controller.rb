@@ -7,7 +7,7 @@ PASTR_SOCKET = 'druby://127.0.0.1:9099'
 
 class Controller < Autumn::Leaf
 
-  before_filter :authenticate, :only => [ :hit, :reload, :quit ]
+  before_filter :authenticate, :only => [ :hit ]
   
   def about_command(stem, sender, reply_to, msg)
     "Pastr allows you to paste into a syntax highlighted entry! Type .help for more info, or check out http://pastr.it for the whole story."

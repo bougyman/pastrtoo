@@ -2,7 +2,7 @@
 Administrator:
   class: Administrator
   respond_to_private_messages: true
-  command_prefix: ~
+  command_prefix: !
 Pastr: 
   class: Pastr
   respond_to_private_messages: true
