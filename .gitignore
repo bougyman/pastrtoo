@@ -1,5 +1,5 @@
 chatlogs/
-pkg/
+pkg/*
 .[a-z]*
 .[A-Z]*
 ._*
