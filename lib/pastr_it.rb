@@ -37,6 +37,8 @@ class PastrIt
     end   
     @opts.parse!(@args)
     if @list_langs
+      puts http_request(:url => "http://pastr.it/languages").content
+      exit
     end
 
     @filename = ARGV.shift if ARGV.size == 1 and File.file?(ARGV.first)
@@ -49,8 +51,6 @@ class PastrIt
   end
 
   def pastr_it
-    check_netrc
-    check_password
     form = {'network' => network, 'channel' => channel, 'paste_body' => paste_body}
     form["title"] = title if title
     form["language"] = language if language
@@ -59,19 +59,27 @@ class PastrIt
 
   private
   def http_request(args)
-    form = args[:form] if args[:form]
-    form ||= nil
+    form = args[:form] || nil
+    url = args[:url] || PasteLink
     require "httpclient"
-    client = HTTPClient.new(ENV["HTTP_PROXY"])
+    check_netrc
+    check_password
+    client = HTTPClient.new(ENV["HTTP_PROXY"] ? ENV["HTTP_PROXY"] : ENV["http_proxy"])
     # Have to do this to get a valid cookie with the server before we auth (lame)
     res = client.get("http://pastr.it")
     if res.status != 200
       puts "Cannot access http://pastr.it. Webserver said Status: #{res.status} -> #{res.reason}"
       exit 1
     end
-    # Now set auth and post
-    client.set_auth(PasteLink, username.strip, password.strip)
-    res = client.post(PasteLink, form)
+    if form
+      # Now set auth and post
+      client.set_auth(url, username.strip, password.strip)
+      res = client.post(url, form)
+    else
+      # Or set auth and get
+      client.set_auth(url, username.strip, password.strip)
+      res = client.get(url)
+    end
     if res.status != 200
       puts "An error occurred posting to#{PasteLink}. Webserver said Status: #{res.status} -> #{res.reason}"
       exit 1
