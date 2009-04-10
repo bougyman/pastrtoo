@@ -85,6 +85,11 @@ class MainController < Controller
     redirect_referer
   end
 
+  def languages
+    response["Content-Type"] = "text/plain"
+    respond(Filter.order(:filter_name).map { |f| f.filter_name }.join("\n"))
+  end
+
   protected
   def httpdigest_lookup_password(username)
     @user = User.find(:nickname => username)
