@@ -10,11 +10,11 @@
       %pre echo sample text|curl -F "paste_body=<-" -F "title=sample" -0 -n http://pastr.it/new/Freenode/_rubyists/plain%20text
       %p Note that when using CHANNEL as part of the url, mapping of /^_/ to # is done as a convenience. See curl documentation (curl --manual) for more details about -F.
       %p Alternately, you may gem install pastr_it (ruby and rubygems required) to use the pastr-it binary, for example:
-      %pre pastr-it -c #rubyists -f /some/file -l ruby
-      %p Would paste the contents of /some/file (leave off -f to paste from STDIN) to Freenode (use -n to change to Efnet), and use ruby as the syntax highlighting language.  See pastr-it -h for full usage
+      %pre pastr-it -c #rubyists -l ruby /some/file
+      %p Would paste the contents of /some/file (leave off /some/file to paste from STDIN) to Freenode (use -n to change to Efnet), and use ruby as the syntax highlighting language.  See pastr-it -h for full usage
       %p 
         If gem install pastr_it does not work (rubyforge is down or borked), you may download the gem directly
-        %a{:href => "http://pastr.it/pastr_it-0.1.2.gem"} here.
+        %a{:href => "http://pastr.it/pastr_it-0.1.4.gem"} here.
     %li Set up alternate nicknames to recognize you by (not yet implemented)
     %li Get pastr to join (or leave) a channel (not yet implemented)
 %p= h("To register (or change your password), /msg pastr .register <somepass> on Freenode.")
