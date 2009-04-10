@@ -1,3 +1,33 @@
+[a810f60 | Fri Apr 10 15:43:42 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * removed the need for -f, now just use what is left of ARGV for filename.  Defaulting title to filename, if filename is given
+
+[cd24fd4 | Thu Apr 09 15:30:35 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * added link to gem back, in case rubyforge is inaccessible
+
+[c6474ea | Thu Apr 09 15:26:54 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * fixed gitignore
+
+[55862ba | Thu Apr 09 15:24:38 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * removed link to pastr gem, pastr_it gem on rubyforge now
+
+[ef25e38 | Thu Apr 09 15:17:39 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added pkg and chatlogs to .gitignore
+
+[05f5b72 | Thu Apr 09 15:17:29 UTC 2009] none <linuxhelp@eagle.(none)>
+
+  * Added administrator funcs back to pastr_bot.
+
+    Added validations on User model to eliminate duplicate nicknames
+
+[0f74e7a | Thu Apr 09 15:15:14 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added tasks from ramaze for testing and packaging
+
 [3efffb6 | Mon Apr 06 20:54:45 UTC 2009] none <linuxhelp@eagle.(none)>
 
   * added a few channels and the administrator leaf

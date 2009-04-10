@@ -1,19 +1,21 @@
 Gem::Specification.new do |s|
   s.name = %q{pastr_it}
-  s.version = "0.1.1"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jayson Vaughn", "Michael Fellinger", "Kevin Berry", "TJ Vanderpoel"]
-  s.date = %q{2009-04-09}
+  s.date = %q{2009-04-10}
   s.default_executable = %q{pastr-it}
   s.email = %q{admins@rubyists.com}
   s.executables = ["pastr-it"]
   s.files = ["lib/pastr_it.rb", "bin/pastr-it"]
   s.homepage = %q{http://code.rubyists.com/projects/pastrtoo}
-  s.post_install_message = %q{See pastr-it -h for usage.  
+  s.post_install_message = %q{
+  See pastr-it -h for usage.  
   A pastr.it account is required for use. 
   You can register for an account by messaging Pastr on Freenode:
-    /msg Pastr .register <somepassword>}
+    /msg Pastr .register <somepassword>
+  }
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.2.0}
   s.summary = %q{A command line program to paste text to http://pastr.it}
