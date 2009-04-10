@@ -87,7 +87,7 @@ class MainController < Controller
 
   def languages
     response["Content-Type"] = "text/plain"
-    respond(Filter.order(:filter_name).map { |f| f.filter_name }.join("\n"))
+    respond(Filter.order(:filter_name).map { |f| "#{f.filter_name} => #{f.filter_method}" }.join("\n"))
   end
 
   protected
