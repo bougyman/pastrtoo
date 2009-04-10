@@ -1,3 +1,19 @@
+[45667ab | Fri Apr 10 23:01:24 UTC 2009] Tj Vanderpoel <bougy.man@gmail.com>
+
+  * added language shortname to #languages listing
+
+[207436c | Fri Apr 10 22:59:36 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added -L/--list switch to list languages and their short name
+
+[3699e12 | Fri Apr 10 22:46:50 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * updated version of gem on web
+
+[d1f4f5c | Fri Apr 10 22:46:19 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * updated changelog and gemspec
+
 [e658176 | Fri Apr 10 22:46:16 UTC 2009] none <linuxhelp@eagle.(none)>
 
   * refactored to clean up methods (DRY), added #languages
