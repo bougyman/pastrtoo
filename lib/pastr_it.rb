@@ -1,6 +1,6 @@
 require "optparse"
 class PastrIt
-  VERSION = '0.1.6'
+  VERSION = '0.1.7'
   REALM = 'Pastr Registered User'
   PasteLink = "http://pastr.it/new"
   attr_accessor :password, :filename, :title, :network, :channel, :language, :username
@@ -20,24 +20,31 @@ class PastrIt
     return @opts if @opts
     @opts = OptionParser.new
     @opts.banner = "\nUsage: pastr-it [options] FILE\n"
+    @opts.separator "\tTo paste from STDIN (instead of a file), leave off FILE, and you'll need to auth with a ~/.netrc"
     @opts.on("-u", "--username USERNAME", "Your username (Default: #{@username})") { |foo| @username = foo }
     @opts.on("-c", "--channel CHANNEL", "IRC Channel for this Pastr (Default: same as username)") { |foo| @channel = foo }
     @opts.separator "\tWhen using your username as the channel argument, the paste will be private"
     @opts.on("-n", "--network NETWORK", "IRC Network for this Pastr (Default: #{network})") { |foo| @network = foo }
     @opts.on("-l", "--language LANGUAGE", "Language to use for syntax highlighting") { |foo| @language = foo }
     @opts.on("-t", "--title TITLE", "Title of this paste (Default: Filename or 'Pastr by #{username}')") { |foo| @title = foo }
-    #@opts.on("-f", "--file FILENAME", "Read paste_body from FILENAME (otherwise reads from stdin)") { |foo| @filename = foo }
-    @opts.separator "\tTo paste from STDIN (instead of a file), leave off FILE, and you'll need to auth with a ~/.netrc"
+    # coming soon
+    #@opts.on("-i", "--id PID", "ID Of paste to edit (instead of making a new paste)") { |foo| @pastr_id = foo }
+    #@opts.on("-a", "--annotate PID", "ID Of paste to annotate (incompatible with -i)") { |foo| @annotate_id = foo }
     @opts.separator "\n---------------\n"
     @opts.on("-L", "--list", "List supported languages") { |foo| @list_langs = true }
 
+    @opts.on("-v", "--version", "Print pastr version") { |foo| @version_only = true }
     @opts.on_tail("-h", "--help", "Show this message") do
       puts @opts
       exit 
     end   
     @opts.parse!(@args)
+
     if @list_langs
       puts http_request(:url => "http://pastr.it/languages").content
+      exit
+    elsif @version_only
+      puts "pastr-it for http://pastr.it - Version: #{PastrIt::VERSION}"
       exit
     end
 
