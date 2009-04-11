@@ -124,6 +124,8 @@ class PastrIt
           print "\n"
         rescue
           system("stty echo")
+        ensure
+          system("stty echo")
         end
       else
         STDERR.puts "Error: STDIN is not a tty (you supplied your paste through STDIN instead of a FILENAME)"
