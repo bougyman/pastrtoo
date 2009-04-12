@@ -40,7 +40,14 @@ class MainController < Controller
     @username = req_login
     paste = PasteEntry[paste_id]
     respond "You can only update your own pastes" unless paste.paster == Paster.find(:nickname => @username)
-    paste.update_with_params(request["pastr_#{paste_id}"])
+    args = {}.merge(request["pastr_#{paste_id}"])
+    if language = request["language"]
+      args[:filter_id] = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first
+    end
+    if args[:channel]
+      args[:channel].sub!(/^_/,"#")
+    end
+    paste.update_with_params(args)
     respond paste.view_link
   end
 
@@ -48,11 +55,13 @@ class MainController < Controller
     postcheck
     @username = req_login
     paste = PasteEntry[paste_id]
-    Ramaze::Log.info("req: #{request["annotation_#{paste_id}"].inspect}\n#{request}")
     args = {
             :paster_id => Paster.find_or_create(:nickname => @username).id,
             :paste_entry_id => paste.id
            }.merge(request["annotation_#{paste_id}"])
+    if language = request["language"]
+      args[:filter_id] = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first
+    end
     annotation = Annotation.create(args)
     respond annotation.view_link
   end
