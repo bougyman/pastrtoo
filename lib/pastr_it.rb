@@ -76,7 +76,7 @@ class PastrIt
     form = {'paste_body' => paste_body}
     form["title"] = title if title
     form["language"] = language if language
-    puts http_request(:form => form, :url => PastrNote).content
+    puts http_request(:form => {"annotation_#{@annotate_id}" => form}, :url => PastrNote).content
   end
 
   def edit_it
@@ -87,7 +87,7 @@ class PastrIt
     form["title"]       = title if title
     form["language"]    = language if language
     form['paste_body']  = paste_body unless no_body
-    puts http_request(:form => form, :url => PastrEdit).content
+    puts http_request(:form => {"pastr_#{@pastr_id}" => form}, :url => PastrEdit).content
   end
 
   def pastr_it
