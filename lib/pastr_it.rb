@@ -68,31 +68,34 @@ class PastrIt
     @channel ||= @username
     if @filename.nil? and STDIN.isatty
       $stderr.puts "No Input on STDIN and no filename given, what am I supposed to paste?" 
+      puts @opts
       exit 1
     end unless @pastr_id
   end
 
   def annotate_it
-    form = {'paste_body' => paste_body}
-    form["title"] = title if title
-    form["language"] = language if language
-    puts http_request(:form => {"annotation_#{@annotate_id}" => form}, :url => PastrNote).content
+    aid = "annotation_#{@annotate_id}"
+    form = {"#{aid}[paste_body]" => paste_body}
+    form["#{aid}[title]"] = title    if title
+    form["language"]      = language if language
+    puts http_request(:form => form, :url => "%s/%s" % [PastrNote, @annotate_id]).content
   end
 
   def edit_it
-    form = {'network' => network, 'channel' => channel, 'paste_body' => paste_body}
+    pid = "pastr_#{@paste_id}"
+    form = {"#{pid}[network]" => network, "#{pid}[channel]" => channel, "#{pid}[paste_body]" => paste_body}
     form = {}
-    form['network']     = network if network
-    form['channel']     = channel if channel
-    form["title"]       = title if title
-    form["language"]    = language if language
-    form['paste_body']  = paste_body unless no_body
-    puts http_request(:form => {"pastr_#{@pastr_id}" => form}, :url => PastrEdit).content
+    form["#{pid}[network]"]     = network    if network
+    form["#{pid}[channel]"]     = channel    if channel
+    form["#{pid}[title]"]       = title      if title
+    form["language"]            = language   if language
+    form["#{pid}[paste_body]"]  = paste_body unless no_body
+    puts http_request(:form => form, :url => "%s/%s" % [PastrEdit, @pastr_id]).content
   end
 
   def pastr_it
     form = {'network' => network, 'channel' => channel, 'paste_body' => paste_body}
-    form["title"] = title if title
+    form["title"]    = title    if title
     form["language"] = language if language
     puts http_request(:form => form).content
   end
