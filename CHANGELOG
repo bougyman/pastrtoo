@@ -1,3 +1,15 @@
+[37375cf | Sun Apr 12 16:32:38 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * upped version
+
+[d0defa1 | Sun Apr 12 16:31:25 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * removed need to auth for -L/--list languages functionality
+
+[4ac578f | Sun Apr 12 16:22:49 UTC 2009] Tj Vanderpoel <bougy.man@gmail.com>
+
+  * Upped version to 1.0, full feature release
+
 [0b45c5a | Sun Apr 12 16:10:36 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
 
   * added edit and annotate to the cli library
