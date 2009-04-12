@@ -64,13 +64,15 @@ class PastrIt
     end
 
     @filename = ARGV.shift if ARGV.size == 1 and File.file?(ARGV.first)
-    @title ||= File.basename(@filename) if @filename
-    @channel ||= @username
+    unless @paste_id
+      @title ||= File.basename(@filename) if @filename
+      @channel ||= @username
+    end
     if @filename.nil? and STDIN.isatty
       $stderr.puts "No Input on STDIN and no filename given, what am I supposed to paste?" 
       puts @opts
       exit 1
-    end unless @pastr_id
+    end unless @pastr_id and @no_body
   end
 
   def annotate_it
@@ -82,11 +84,10 @@ class PastrIt
   end
 
   def edit_it
-    pid = "pastr_#{@paste_id}"
-    form = {"#{pid}[network]" => network, "#{pid}[channel]" => channel, "#{pid}[paste_body]" => paste_body}
+    pid = "pastr_#{@pastr_id}"
     form = {}
     form["#{pid}[network]"]     = network    if network
-    form["#{pid}[channel]"]     = channel    if channel
+    form["#{pid}[channel]"]     = channel.sub(/^_/,"#") if channel
     form["#{pid}[title]"]       = title      if title
     form["language"]            = language   if language
     form["#{pid}[paste_body]"]  = paste_body unless no_body
@@ -94,7 +95,7 @@ class PastrIt
   end
 
   def pastr_it
-    form = {'network' => network, 'channel' => channel, 'paste_body' => paste_body}
+    form = {'network' => network, 'channel' => channel.sub(/^_/,"#"), 'paste_body' => paste_body}
     form["title"]    = title    if title
     form["language"] = language if language
     puts http_request(:form => form).content
