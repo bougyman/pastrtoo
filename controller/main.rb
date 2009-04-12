@@ -8,6 +8,7 @@
 #Ramaze::Route["/admin"] = "/"
 class MainController < Controller
   helper :httpdigest
+
   def error
     #require "pp"
     require "ipaddr"
@@ -34,6 +35,28 @@ class MainController < Controller
     respond("Fail! Your session may have timed out, try clearing your HTTP_AUTH credentials", 401)
   end
 
+  def edit(paste_id)
+    postcheck
+    @username = req_login
+    paste = PasteEntry[paste_id]
+    respond "You can only update your own pastes" unless paste.paster == Paster.find(:nickname => @username)
+    paste.update_with_params(request["pastr_#{paste_id}"])
+    respond paste.view_link
+  end
+
+  def annotate(paste_id)
+    postcheck
+    @username = req_login
+    paste = PasteEntry[paste_id]
+    Ramaze::Log.info("req: #{request["annotation_#{paste_id}"].inspect}\n#{request}")
+    args = {
+            :paster_id => Paster.find_or_create(:nickname => @username).id,
+            :paste_entry_id => paste.id
+           }.merge(request["annotation_#{paste_id}"])
+    annotation = Annotation.create(args)
+    respond annotation.view_link
+  end
+
   # This method creates a new paste for authorized users, either
   # interactively or all-in-one-shot if you pass the proper url/request params.
   # http://pastr.it/NETWORK/CHANNEL/LANGUAGE/TITLE  
@@ -41,9 +64,7 @@ class MainController < Controller
   # There is a command line interface giving access to all the available options
   # at http://pastr.it/admin, also an example of how to use curl.
   def new(network = nil, channel = nil, language = nil, title = nil)
-    require "lib/pastr_it"
-    @username = httpdigest('new paste', PastrIt::REALM)
-    require "lib/pastr_drb"
+    @username = req_login
     @current_networks = (pdb = PastrDrb.new).networks
     @network_name = network || request["network"]
     # Set current channels if they passed a network name and we know about it (Freenode or Efnet)
@@ -91,6 +112,21 @@ class MainController < Controller
   end
 
   protected
+  def postcheck
+    if request.post?
+      return true
+    else
+      redirect_referer
+      return false
+    end
+  end
+
+  def req_login
+    require "lib/pastr_it"
+    require "lib/pastr_drb"
+    @username = httpdigest('pastr posting', PastrIt::REALM)
+  end
+
   def httpdigest_lookup_password(username)
     @user = User.find(:nickname => username)
     httpdigest_failure if @user.nil?
