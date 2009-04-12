@@ -1,6 +1,6 @@
 require "optparse"
 class PastrIt
-  VERSION = '0.1.7'
+  VERSION = '1.0.0'
   REALM = 'Pastr Registered User'
   PastrHome = "http://pastr.it"
   PastrNew  = "%s/%s" % [PastrHome, :new]

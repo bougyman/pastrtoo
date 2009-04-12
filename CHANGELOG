@@ -1,3 +1,27 @@
+[0b45c5a | Sun Apr 12 16:10:36 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added edit and annotate to the cli library
+
+[b90642b | Sun Apr 12 16:10:13 UTC 2009] Tj Vanderpoel <bougy.man@gmail.com>
+
+  * added pastr-it functionality for edit and annotate
+
+[62f7a60 | Sun Apr 12 15:00:17 UTC 2009] Tj Vanderpoel <bougy.man@gmail.com>
+
+  * changed form keys in annotate_it and edit_it
+
+[2c28d19 | Sun Apr 12 14:05:20 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added edit and annotate to pastr-it
+
+[ed6a140 | Sat Apr 11 12:57:44 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * ensure we reset the users term if they interrupt during password
+
+[7a3a5b1 | Sat Apr 11 12:51:52 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * added --version to pastr-it command.  Cleaned up main website
+
 [c325b24 | Fri Apr 10 23:02:56 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
 
   * updated gem version on website
