@@ -56,7 +56,7 @@ class PastrIt
     @opts.parse!(@args)
 
     if @list_langs
-      puts http_request(:url => "http://pastr.it/languages").content
+      puts http_request(:url => "http://pastr.it/languages", :auth => false).content
       exit
     elsif @version_only
       puts "pastr-it for http://pastr.it - Version: #{PastrIt::VERSION}"
@@ -104,7 +104,7 @@ class PastrIt
   def http_request(args)
     form = args[:form] || nil
     url = args[:url] || PastrNew
-    auth = args[:auth] || true
+    auth = args.keys.include?(:auth) ? args[:auth] : true
     require "httpclient"
     if auth
       check_netrc
