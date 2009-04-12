@@ -1,3 +1,15 @@
+[ac0d89c | Sun Apr 12 17:59:56 UTC 2009] Tj Vanderpoel <bougy.man@gmail.com>
+
+  * fixed controller-side channel handling (of _channel)
+
+[8bb78c0 | Sun Apr 12 17:59:17 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * fixed typo which was keeping edit from working
+
+[a09436f | Sun Apr 12 16:33:20 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
+
+  * new changelog and gemspec for release
+
 [37375cf | Sun Apr 12 16:32:38 UTC 2009] TJ Vanderpoel <bougy.man@gmail.com>
 
   * upped version
