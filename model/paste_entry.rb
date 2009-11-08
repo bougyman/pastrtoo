@@ -11,6 +11,21 @@ class PasteEntry < Sequel::Model
   before_save :key_check
   before_save :default_title
 
+  def self.by_day(args = nil)
+    ds = args ? self.filter(args).order(:created_at) : self.order(:created_at)
+    dayhash = ds.inject([[]]) do |arr, pastr|
+      d = pastr.created_at.strftime("%Y%m%d")
+      arr[0] = [d] if arr.last.first.nil?
+      arr << [d] if (arr.last.first != d)
+      arr.last << pastr
+      arr
+    end
+  end
+
+  def created_day
+    created_at.strftime("%Y%m%d")
+  end
+
   def text
     self.paste_body
   end

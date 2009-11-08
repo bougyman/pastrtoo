@@ -80,6 +80,7 @@ class PastrIt
     form = {"#{aid}[paste_body]" => paste_body}
     form["#{aid}[title]"] = title    if title
     form["language"]      = language if language
+    form["channel"]      = channel if channel
     puts http_request(:form => form, :url => "%s/%s" % [PastrNote, @annotate_id]).content
   end
 

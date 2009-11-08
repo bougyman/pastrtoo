@@ -14,9 +14,11 @@ Efnet:
   - "#linuxhelp"
   - "#regex"
   - "#debian"
+  - "#philosophy"
+  - "#ubuntu"
   - "#ruby"
   - "#rubyists": flipper
-  server: irc.easynews.com
+  server: irc.efnet.ru
 Freenode: 
   nick: Pastr
   password: ZrDaGNTX
@@ -32,11 +34,15 @@ Freenode:
   - "#freeswitcher"
   - "#lighttpd"
   - "#emash"
-  - "#pastr"
+  - "#autumn"
   - "#rubyists"
+  - "#rubyists-support"
+  - "#rubyists.com": help
   - "#ramaze"
+  - "#rack"
   - "#sequel"
   - "#postgresql"
+  - "#eventmachine"
   - "#mixxx"
-  - "#freeswitch-social"
+  - "#freeswitch-support": helpme
   server: irc.freenode.net

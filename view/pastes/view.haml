@@ -14,7 +14,10 @@
       - @paste_entry.sections.each do |section|
         ~ begin;section.highlighted;rescue; h section.text;end
   %p
-    = A("Plain Text Version", :href => Rs(:view, @paste_entry.id, "pastr_#{@paste_entry.id}.txt"))
+    - if @paste_entry.private and @paste_entry.network != "Freenode"
+      = A("Plain Text Version", :href => Rs(:view, @paste_entry.id, "pastr_#{@paste_entry.id}.txt", {:key => @paste_entry.paste_key}))
+    - else
+      = A("Plain Text Version", :href => Rs(:view, @paste_entry.id, "pastr_#{@paste_entry.id}.txt"))
     = A("Annotate this paste", :href => Rs(:annotate, @paste_entry.id))
 
 - @paste_entry.annotations.each_with_index do |annotation, a_idx|

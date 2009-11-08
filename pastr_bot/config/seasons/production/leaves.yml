@@ -1,4 +1,8 @@
 --- 
+NyTimes:
+  class: NyTimes
+  respond_to_private_messages: true
+  command_prefix: "?"
 Administrator:
   class: Administrator
   respond_to_private_messages: true
@@ -9,9 +13,16 @@ Pastr:
   command_prefix: .
 LogBot:
   class: LogBot
-  command_prefix: !
+  command_prefix: "?"
   log_channels: 
   - "#rubyists-Freenode"
-  - "#rubyists-Efnet"
+  - "#rubyists.com-Freenode"
+  - "#rubyists-support-Freenode"
+  - "#philosophy-Efnet"
+  - "#pho-Efnet"
+  - "#linuxhelp-Efnet"
+  - "#linuxgeneration-Efnet"
+  - "#ubuntu-Efnet"
+  - "#debian-Efnet"
   - "#ramaze-Freenode"
   - "#lighttpd-Freenode"

@@ -16,7 +16,7 @@ class PastesController < Controller
       redirect(R(:view, paste_id))
     end
     @title = "Recent Pastes"
-    paste_entry_data = PasteEntry.order(:id.desc).filter("paste_body is not null and private is false")
+    paste_entry_data = PasteEntry.order(:id.desc).filter("paste_body is not null and private is false and created_at > now()-'30 days'::text::interval")
     @paste_entries = paginate(paste_entry_data, :limit => 25)
   end
 
@@ -125,8 +125,14 @@ class PastesController < Controller
   end
 
   def view(paste_id, filename = nil)
+    key = request["key"]
     @paste_entry = PasteEntry[paste_id]
     paste_not_found(paste_id) if @paste_entry.nil?
+    if @paste_entry.network != "Freenode"
+      if @paste_entry.private
+        paste_not_found(paste_id) unless key == @paste_entry.paste_key
+      end
+    end
     if filename
       respond(@paste_entry.paste_body.to_s, 200, 'Content-Type' => "text/plain")
     else
@@ -156,7 +162,11 @@ class PastesController < Controller
       flash[:INFO] = {"Paste #{@paste_entry.id}" => "updated successfully"}
     end
     @title = @paste_entry.title || "Paste number #{paste_id}"
-    redirect Rs(:view, @paste_entry.id)
+    if @paste_entry.private
+      redirect Rs(:view, @paste_entry.id, {:key => @paste_entry.paste_key})
+    else
+      redirect Rs(:view, @paste_entry.id)
+    end
   end
 
   # the string returned at the end of the function is used as the html body

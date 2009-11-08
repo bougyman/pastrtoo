@@ -9,6 +9,10 @@
 class MainController < Controller
   helper :httpdigest
 
+  def rand
+    rand(100).to_s
+  end
+
   def error
     #require "pp"
     require "ipaddr"
@@ -42,7 +46,8 @@ class MainController < Controller
     respond "You can only update your own pastes" unless paste.paster == Paster.find(:nickname => @username)
     args = {}.merge(request["pastr_#{paste_id}"])
     if language = request["language"]
-      args[:filter_id] = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first
+      filter = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first
+      args[:filter_id] = filter.id unless filter.nil?
     end
     if args[:channel]
       args[:channel].sub!(/^_/,"#")
@@ -57,10 +62,13 @@ class MainController < Controller
     paste = PasteEntry[paste_id]
     args = {
             :paster_id => Paster.find_or_create(:nickname => @username).id,
-            :paste_entry_id => paste.id
+            :paste_entry_id => paste_id
            }.merge(request["annotation_#{paste_id}"])
+    Ramaze::Log.info("args are #{args.inspect}")
     if language = request["language"]
-      args[:filter_id] = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first
+      if filter = Filter.filter(:filter_name.ilike language).or(:filter_method.ilike language).first
+        args[:filter_id] = filter.id
+      end
     end
     annotation = Annotation.create(args)
     respond annotation.view_link

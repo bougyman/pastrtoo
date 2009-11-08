@@ -1,4 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__),  "..", "model", "init.rb"))
+require File.expand_path(File.join(File.dirname(__FILE__),  "..", "lib", "pastrtoo.rb"))
+require "pastrtoo/proverb"
 
 require "digest/md5"
 require "drb"
@@ -24,6 +26,10 @@ class Controller < Autumn::Leaf
   end
 
 # {{{ Public Methods, these are what we publish
+  def proverb_command(stem, sender, reply_to, msg)
+    PastrToo::Proverb.sample(msg.to_s.size > 0 ? msg : nil)
+  end
+
   def hitme_command(stem, sender, reply_to, msg)
     #stem.message "Hitting #{sender[:nick]}"
     paster = ::Paster.find_or_create(:nickname => sender[:nick])
