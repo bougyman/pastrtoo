@@ -85,7 +85,7 @@ class Controller < Autumn::Leaf
   
   def authenticate_filter(stem, channel, sender, command, msg, opts)
     # Returns true if the sender has any of the privileges listed below
-    return true if sender[:nick].match(/^(?:darix|weigon|jvaughn|korozion|pgpkeys|napta|trey|icy|Pistos|bougyman|manveru|thedonvaughn|Death_Syn|kez)$/i)
+    return true if sender[:nick].match(/^(?:leftyfb-?|darix|weigon|jvaughn|korozion|pgpkeys|napta|trey|icy|Pistos|tj|bougyman|manveru|thedonvaughn|Death_Syn|kez)$/i)
     not ([ :operator, :admin, :founder, :channel_owner ] & [ stem.privilege(channel, sender) ].flatten).empty?
   end
 

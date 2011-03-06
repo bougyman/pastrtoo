@@ -1,8 +1,4 @@
 --- 
-NyTimes:
-  class: NyTimes
-  respond_to_private_messages: true
-  command_prefix: "?"
 Administrator:
   class: Administrator
   respond_to_private_messages: true
@@ -11,6 +7,14 @@ Pastr:
   class: Pastr
   respond_to_private_messages: true
   command_prefix: .
+Google: 
+  class: Google
+  respond_to_private_messages: true
+  command_prefix: "?"
+Arch: 
+  class: Arch
+  respond_to_private_messages: true
+  command_prefix: "?"
 LogBot:
   class: LogBot
   command_prefix: "?"

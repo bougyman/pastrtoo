@@ -4,13 +4,14 @@ Efnet:
   leaves: 
   - Pastr
   - LogBot
+  - Google
+  - Arch
   - Administrator
   rejoin: true
-  local_ip: 74.7.148.119
+  local_ip: 63.133.184.119
   server_id: Efnet
   channels: 
   - "#linuxgeneration"
-  - "#philosophy"
   - "#linuxhelp"
   - "#regex"
   - "#debian"
@@ -18,31 +19,33 @@ Efnet:
   - "#ubuntu"
   - "#ruby"
   - "#rubyists": flipper
-  server: irc.efnet.ru
+  server: irc.prison.net
 Freenode: 
   nick: Pastr
   password: ZrDaGNTX
   leaves: 
   - Pastr
   - LogBot
+  - Google
+  - Arch
   - Administrator
   rejoin: true
-  local_ip: 74.7.148.119
+  local_ip: 63.133.184.119
   server_id: Freenode
   channels: 
-  - "#queuetastic"
-  - "#freeswitcher"
   - "#lighttpd"
-  - "#emash"
-  - "#autumn"
+  - "#pfsense"
   - "#rubyists"
   - "#rubyists-support"
   - "#rubyists.com": help
   - "#ramaze"
+  - "#archlinux-offtopic"
   - "#rack"
   - "#sequel"
   - "#postgresql"
   - "#eventmachine"
   - "#mixxx"
+  - "#ver"
+  - "#ruby-de"
   - "#freeswitch-support": helpme
   server: irc.freenode.net
